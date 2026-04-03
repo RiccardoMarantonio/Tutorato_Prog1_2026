@@ -85,24 +85,3 @@ func TestIntersezione(t *testing.T) {
 		})
 	}
 }
-
-func TestContaOccorrenze(t *testing.T) {
-	tests := []struct {
-		name   string
-		slice  []int
-		valore int
-		want   int
-	}{
-		{"due volte", []int{1, 5, 5, 7}, 5, 2},
-		{"zero volte", []int{1, 2, 3}, 5, 0},
-		{"vuoto", []int{}, 5, 0},
-		{"tutti uguali", []int{3, 3, 3}, 3, 3},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := ContaOccorrenze(tt.slice, tt.valore); got != tt.want {
-				t.Errorf("ContaOccorrenze(%v, %d) = %d, want %d", tt.slice, tt.valore, got, tt.want)
-			}
-		})
-	}
-}

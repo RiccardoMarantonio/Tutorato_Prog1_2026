@@ -9,7 +9,10 @@ func SommaRicorsiva(n int) int {
 }
 
 func main() {
-	var n int
-	fmt.Scan(&n)
-	fmt.Printf("Somma da 1 a %d: %d\n", n, SommaRicorsiva(n))
+	// TODO:
+	// 1. Leggi un numero n da stdin
+	// 2. Stampa "Somma da 1 a N: X" dove X = SommaRicorsiva(n)
+	//
+	// Suggerimento: usa fmt.Scan(&n) per leggere, fmt.Printf per stampare
+	_ = fmt.Scan // placeholder
 }

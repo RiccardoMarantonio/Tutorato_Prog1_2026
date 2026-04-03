@@ -21,12 +21,10 @@ func TrovaMaxMin(slice []int) (int, int) {
 }
 
 func main() {
-	var n int
-	fmt.Scan(&n)
-	slice := make([]int, n)
-	for i := 0; i < n; i++ {
-		fmt.Scan(&slice[i])
-	}
-	fmt.Printf("Max: %d\n", TrovaMax(slice))
-	fmt.Printf("Min: %d\n", TrovaMin(slice))
+	// TODO:
+	// 1. Leggi n da stdin
+	// 2. Crea una slice con make([]int, n)
+	// 3. Leggi n numeri
+	// 4. Stampa Max e Min usando le funzioni
+	_ = fmt.Scan // placeholder
 }

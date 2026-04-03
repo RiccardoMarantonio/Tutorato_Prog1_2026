@@ -23,22 +23,17 @@ func ContaAnagrammi(parole []string) map[string]int {
 }
 
 func main() {
-	var n int
-	fmt.Scan(&n)
-	parole := make([]string, n)
-	for i := 0; i < n; i++ {
-		fmt.Scan(&parole[i])
-	}
-
-	gruppi := RaggruppaAnagrammi(parole)
-	fmt.Println("Gruppi di anagrammi:")
-	for _, g := range gruppi {
-		fmt.Println(g)
-	}
-
-	conta := ContaAnagrammi(parole)
-	fmt.Println("\nFirme più comuni:")
-	for firma, count := range conta {
-		fmt.Printf("%s: %d\n", firma, count)
-	}
+	// TODO:
+	// 1. Leggi un numero n da stdin (quante parole seguiranno)
+	// 2. Leggi n parole in una slice
+	// 3. Stampa i gruppi di anagrammi con RaggruppaAnagrammi
+	// 4. Stampa le firme con ContaAnagrammi
+	//
+	// Esempio input:
+	//   3
+	//   listen silent hello
+	//
+	// Suggerimento: usa make([]string, n) per creare la slice
+	// Poi fmt.Scan(&parole[i]) per leggere ogni parola
+	_ = fmt.Scan // placeholder
 }

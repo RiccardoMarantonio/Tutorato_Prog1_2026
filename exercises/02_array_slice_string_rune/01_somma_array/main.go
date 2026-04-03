@@ -9,9 +9,9 @@ func SommaArray(arr [5]int) int {
 }
 
 func main() {
-	var arr [5]int
-	for i := 0; i < 5; i++ {
-		fmt.Scan(&arr[i])
-	}
-	fmt.Printf("Somma: %d\n", SommaArray(arr))
+	// TODO:
+	// 1. Leggi 5 numeri da stdin in un array [5]int
+	// 2. Stampa "Somma: X" dove X e il risultato di SommaArray
+	// Suggerimento: usa fmt.Scan(&arr[i]) in un ciclo for
+	_ = fmt.Scan // placeholder
 }

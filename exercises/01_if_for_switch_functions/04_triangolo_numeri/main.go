@@ -20,9 +20,12 @@ func StampaTriangolo(n int) {
 }
 
 func main() {
-	var n int
-	fmt.Scan(&n)
-	StampaTriangolo(n)
-	fmt.Printf("Ultimo numero riga %d: %d\n", n, CalcolaNumeroRiga(n))
-	fmt.Printf("Somma totale: %d\n", SommaTriangolo(n))
+	// TODO:
+	// 1. Leggi un numero n da stdin
+	// 2. Stampa il triangolo con StampaTriangolo(n)
+	// 3. Stampa "Ultimo numero riga N: X" dove X = CalcolaNumeroRiga(n)
+	// 4. Stampa "Somma totale: X" dove X = SommaTriangolo(n)
+	//
+	// Suggerimento: usa fmt.Printf("%4d", num) per allineare i numeri in campo di 4 caratteri
+	_ = fmt.Scan // placeholder
 }
