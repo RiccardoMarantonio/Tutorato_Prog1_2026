@@ -23,22 +23,3 @@ func TestConfronta(t *testing.T) {
 		})
 	}
 }
-
-func TestContaTentativi(t *testing.T) {
-	tests := []struct {
-		name    string
-		storico []int
-		want    int
-	}{
-		{"vuoto", []int{}, 0},
-		{"uno", []int{42}, 1},
-		{"quattro", []int{50, 25, 35, 42}, 4},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := ContaTentativi(tt.storico); got != tt.want {
-				t.Errorf("ContaTentativi(%v) = %d, want %d", tt.storico, got, tt.want)
-			}
-		})
-	}
-}

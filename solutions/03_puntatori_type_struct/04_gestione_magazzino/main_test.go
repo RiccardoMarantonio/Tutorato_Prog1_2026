@@ -4,12 +4,12 @@ import "testing"
 
 func TestAggiungiProdotto(t *testing.T) {
 	m := &Magazzino{}
-	err := AggiungiProdotto(m, Prodotto{"P001", "Laptop", "Elettronica", 899.99, 10})
+	err := AggiungiProdotto(m, Prodotto{"P001", "Laptop", 899.99, 10})
 	if err != nil {
 		t.Errorf("AggiungiProdotto: errore inatteso: %v", err)
 	}
 
-	err2 := AggiungiProdotto(m, Prodotto{"P001", "Laptop2", "Elettronica", 500, 5})
+	err2 := AggiungiProdotto(m, Prodotto{"P001", "Laptop2", 500, 5})
 	if err2 == nil {
 		t.Error("AggiungiProdotto duplicato: errore atteso, got nil")
 	}
@@ -19,46 +19,56 @@ func TestAggiungiProdotto(t *testing.T) {
 	}
 }
 
-func TestRegistraMovimento(t *testing.T) {
+func TestRegistraCarico(t *testing.T) {
 	m := &Magazzino{}
-	AggiungiProdotto(m, Prodotto{"P001", "Laptop", "Elettronica", 899.99, 10})
+	AggiungiProdotto(m, Prodotto{"P001", "Laptop", 899.99, 10})
 
-	err := RegistraMovimento(m, Movimento{"P001", "SCARICO", 3})
+	err := RegistraCarico(m, "P001", 5)
 	if err != nil {
-		t.Errorf("RegistraMovimento scarico: errore inatteso: %v", err)
+		t.Errorf("RegistraCarico: errore inatteso: %v", err)
+	}
+	if m.Prodotti[0].Quantita != 15 {
+		t.Errorf("Quantita dopo carico = %d, want 15", m.Prodotti[0].Quantita)
+	}
+
+	err = RegistraCarico(m, "P999", 1)
+	if err == nil {
+		t.Error("RegistraCarico prodotto inesistente: errore atteso, got nil")
+	}
+
+	err = RegistraCarico(m, "P001", 0)
+	if err == nil {
+		t.Error("RegistraCarico quantita zero: errore atteso, got nil")
+	}
+}
+
+func TestRegistraScarico(t *testing.T) {
+	m := &Magazzino{}
+	AggiungiProdotto(m, Prodotto{"P001", "Laptop", 899.99, 10})
+
+	err := RegistraScarico(m, "P001", 3)
+	if err != nil {
+		t.Errorf("RegistraScarico: errore inatteso: %v", err)
 	}
 	if m.Prodotti[0].Quantita != 7 {
 		t.Errorf("Quantita dopo scarico = %d, want 7", m.Prodotti[0].Quantita)
 	}
 
-	err = RegistraMovimento(m, Movimento{"P001", "CARICO", 5})
-	if err != nil {
-		t.Errorf("RegistraMovimento carico: errore inatteso: %v", err)
-	}
-	if m.Prodotti[0].Quantita != 12 {
-		t.Errorf("Quantita dopo carico = %d, want 12", m.Prodotti[0].Quantita)
+	err = RegistraScarico(m, "P001", 100)
+	if err == nil {
+		t.Error("RegistraScarico quantita eccessiva: errore atteso, got nil")
 	}
 
-	err = RegistraMovimento(m, Movimento{"P001", "SCARICO", 100})
+	err = RegistraScarico(m, "P999", 1)
 	if err == nil {
-		t.Error("RegistraMovimento scarico eccessivo: errore atteso, got nil")
-	}
-
-	err = RegistraMovimento(m, Movimento{"P999", "CARICO", 1})
-	if err == nil {
-		t.Error("RegistraMovimento prodotto inesistente: errore atteso, got nil")
-	}
-
-	err = RegistraMovimento(m, Movimento{"P001", "CARICO", 0})
-	if err == nil {
-		t.Error("RegistraMovimento quantita zero: errore atteso, got nil")
+		t.Error("RegistraScarico prodotto inesistente: errore atteso, got nil")
 	}
 }
 
 func TestValoreMagazzino(t *testing.T) {
 	m := &Magazzino{Prodotti: []Prodotto{
-		{"P001", "A", "Cat1", 10.0, 5},
-		{"P002", "B", "Cat1", 20.0, 3},
+		{"P001", "A", 10.0, 5},
+		{"P002", "B", 20.0, 3},
 	}}
 	got := ValoreMagazzino(*m)
 	want := 110.0
@@ -73,27 +83,31 @@ func TestValoreMagazzino(t *testing.T) {
 
 func TestProdottiSottoScorta(t *testing.T) {
 	m := &Magazzino{Prodotti: []Prodotto{
-		{"P001", "A", "Cat1", 10.0, 5},
-		{"P002", "B", "Cat1", 20.0, 15},
-		{"P003", "C", "Cat2", 5.0, 3},
+		{"P001", "A", 10.0, 5},
+		{"P002", "B", 20.0, 15},
+		{"P003", "C", 5.0, 3},
 	}}
-	sotto := ProdottiSottoScorta(*m, 10)
-	if len(sotto) != 2 {
-		t.Errorf("ProdottiSottoScorta(10) = %d prodotti, want 2", len(sotto))
+	count := ProdottiSottoScorta(*m, 10)
+	if count != 2 {
+		t.Errorf("ProdottiSottoScorta(10) = %d, want 2", count)
 	}
 }
 
-func TestRiepilogoCategoria(t *testing.T) {
+func TestCercaProdotto(t *testing.T) {
 	m := &Magazzino{Prodotti: []Prodotto{
-		{"P001", "A", "Elettronica", 10.0, 5},
-		{"P002", "B", "Elettronica", 20.0, 3},
-		{"P003", "C", "Arredo", 5.0, 10},
+		{"P001", "Laptop", 899.99, 10},
 	}}
-	riep := RiepilogoCategoria(*m)
-	if riep["Elettronica"] != 8 {
-		t.Errorf("Elettronica: %d, want 8", riep["Elettronica"])
+
+	p, err := CercaProdotto(*m, "P001")
+	if err != nil {
+		t.Errorf("CercaProdotto: errore inatteso: %v", err)
 	}
-	if riep["Arredo"] != 10 {
-		t.Errorf("Arredo: %d, want 10", riep["Arredo"])
+	if p.Nome != "Laptop" {
+		t.Errorf("CercaProdotto: Nome = %q, want %q", p.Nome, "Laptop")
+	}
+
+	_, err2 := CercaProdotto(*m, "P999")
+	if err2 == nil {
+		t.Error("CercaProdotto inesistente: errore atteso, got nil")
 	}
 }

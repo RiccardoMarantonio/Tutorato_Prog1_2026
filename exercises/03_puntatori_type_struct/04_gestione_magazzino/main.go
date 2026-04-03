@@ -4,56 +4,45 @@ import (
 	"fmt"
 )
 
-// Prodotto rappresenta un prodotto in magazzino.
 type Prodotto struct {
-	Codice    string
-	Nome      string
-	Categoria string
-	Prezzo    float64
-	Quantita  int
+	Codice   string
+	Nome     string
+	Prezzo   float64
+	Quantita int
 }
 
-// Movimento rappresenta un carico o scarico.
-type Movimento struct {
-	CodiceProdotto string
-	Tipo           string
-	Quantita       int
-}
-
-// Magazzino gestisce prodotti e movimenti.
 type Magazzino struct {
-	Prodotti  []Prodotto
-	Movimenti []Movimento
+	Prodotti []Prodotto
 }
 
-// AggiungiProdotto aggiunge un prodotto. Errore se il codice esiste già.
 func AggiungiProdotto(m *Magazzino, p Prodotto) error {
 	// TODO: implementare
 	return nil
 }
 
-// RegistraMovimento registra un movimento e aggiorna la quantità.
-func RegistraMovimento(m *Magazzino, mov Movimento) error {
+func RegistraCarico(m *Magazzino, codice string, qta int) error {
 	// TODO: implementare
 	return nil
 }
 
-// ValoreMagazzino restituisce il valore totale del magazzino.
+func RegistraScarico(m *Magazzino, codice string, qta int) error {
+	// TODO: implementare
+	return nil
+}
+
 func ValoreMagazzino(m Magazzino) float64 {
 	// TODO: implementare
 	return 0
 }
 
-// ProdottiSottoScorta restituisce prodotti con quantità < soglia.
-func ProdottiSottoScorta(m Magazzino, soglia int) []Prodotto {
+func ProdottiSottoScorta(m Magazzino, soglia int) int {
 	// TODO: implementare
-	return nil
+	return 0
 }
 
-// RiepilogoCategoria restituisce mappa categoria -> totale pezzi.
-func RiepilogoCategoria(m Magazzino) map[string]int {
+func CercaProdotto(m Magazzino, codice string) (Prodotto, error) {
 	// TODO: implementare
-	return nil
+	return Prodotto{}, nil
 }
 
 func main() {
@@ -67,7 +56,7 @@ func main() {
 		switch cmd {
 		case "AGGIUNGI":
 			var p Prodotto
-			fmt.Scan(&p.Codice, &p.Nome, &p.Categoria, &p.Prezzo, &p.Quantita)
+			fmt.Scan(&p.Codice, &p.Nome, &p.Prezzo, &p.Quantita)
 			if err := AggiungiProdotto(m, p); err != nil {
 				fmt.Printf("Errore: %v\n", err)
 			} else {
@@ -77,8 +66,7 @@ func main() {
 			var cod string
 			var qta int
 			fmt.Scan(&cod, &qta)
-			mov := Movimento{cod, "CARICO", qta}
-			if err := RegistraMovimento(m, mov); err != nil {
+			if err := RegistraCarico(m, cod, qta); err != nil {
 				fmt.Printf("Errore: %v\n", err)
 			} else {
 				fmt.Printf("Carico %s: %d pezzi\n", cod, qta)
@@ -87,8 +75,7 @@ func main() {
 			var cod string
 			var qta int
 			fmt.Scan(&cod, &qta)
-			mov := Movimento{cod, "SCARICO", qta}
-			if err := RegistraMovimento(m, mov); err != nil {
+			if err := RegistraScarico(m, cod, qta); err != nil {
 				fmt.Printf("Errore: %v\n", err)
 			} else {
 				fmt.Printf("Scarico %s: %d pezzi\n", cod, qta)
@@ -98,23 +85,17 @@ func main() {
 		case "SOTTO_SCORTA":
 			var soglia int
 			fmt.Scan(&soglia)
-			sotto := ProdottiSottoScorta(*m, soglia)
-			fmt.Printf("\nProdotti sotto scorta (soglia: %d):\n", soglia)
-			if len(sotto) == 0 {
-				fmt.Println("Nessuno")
+			count := ProdottiSottoScorta(*m, soglia)
+			fmt.Printf("\nProdotti sotto scorta (soglia: %d): %d\n\n", soglia, count)
+		case "CERCA":
+			var cod string
+			fmt.Scan(&cod)
+			p, err := CercaProdotto(*m, cod)
+			if err != nil {
+				fmt.Printf("Errore: %v\n", err)
 			} else {
-				for _, p := range sotto {
-					fmt.Printf("%s - %s - Quantita: %d\n", p.Codice, p.Nome, p.Quantita)
-				}
+				fmt.Printf("Trovato: %s - %s - %.2f EUR - Quantita: %d\n", p.Codice, p.Nome, p.Prezzo, p.Quantita)
 			}
-			fmt.Println()
-		case "RIEPILOGO":
-			fmt.Println("\nRiepilogo per categoria:")
-			riep := RiepilogoCategoria(*m)
-			for cat, qta := range riep {
-				fmt.Printf("%s: %d\n", cat, qta)
-			}
-			fmt.Println()
 		}
 	}
 }
