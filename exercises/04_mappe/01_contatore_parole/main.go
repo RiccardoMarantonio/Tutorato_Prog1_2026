@@ -14,26 +14,15 @@ func ContaParole(parole []string) map[string]int {
 }
 
 func main() {
-	var parole []string
-	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
-		line := scanner.Text()
-		if line == "" {
-			break
-		}
-		parole = append(parole, line)
-	}
-
-	contatori := ContaParole(parole)
-
-	// Ordina le chiavi per output deterministico
-	var chiavi []string
-	for k := range contatori {
-		chiavi = append(chiavi, k)
-	}
-	sort.Strings(chiavi)
-
-	for _, k := range chiavi {
-		fmt.Printf("%s: %d\n", k, contatori[k])
-	}
+	// TODO:
+	// 1. Leggi parole da stdin una per riga (riga vuota = fine input)
+	// 2. Chiama ContaParole per ottenere i conteggi
+	// 3. Ordina le chiavi della mappa e stampa "parola: conteggio" per ognuna
+	//
+	// Suggerimento: usa bufio.NewScanner(os.Stdin) per leggere riga per riga
+	// Per ordinare le chiavi: mettile in una slice e usa sort.Strings
+	// Poi usa fmt.Printf per stampare
+	_ = bufio.NewScanner(os.Stdin)
+	_ = sort.Strings
+	_ = fmt.Println
 }

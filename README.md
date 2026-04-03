@@ -1,8 +1,8 @@
 # Tutorato Programmazione 1 — Laboratorio Go
 
-Repository didattica per il corso di Programmazione 1. Contiene **21 esercizi** organizzati in **6 capitoli** tematici, ciascuno con 4 livelli di difficoltà crescente: **Intro**, **Easy**, **Medium**, **Hard**.
+Repository didattica per il corso di Programmazione 1. Contiene **28 esercizi** organizzati in **6 capitoli** tematici, con difficoltà crescente da **Intro** a **Hard**.
 
-Ogni esercizio è autonomo: ha una traccia (`README.md`), uno skeletro da completare (`main.go`) e test automatici (`main_test.go`).
+Ogni esercizio è autonomo: ha una traccia (`README.md`), uno scheletro da completare (`main.go`) e test automatici (`main_test.go`).
 
 ## Prerequisiti
 
@@ -14,16 +14,23 @@ Ogni esercizio è autonomo: ha una traccia (`README.md`), uno skeletro da comple
 
 ```
 ├── exercises/                          # Esercizi per gli studenti
-│   ├── 01_if_for_switch_functions/     # Capitolo 1: controllo flusso e funzioni
-│   │   ├── 01_numeri_pari/             #   Intro
-│   │   ├── 02_indovina_numero/         #   Easy
-│   │   ├── 03_fizzbuzz_avanzato/       #   Medium
-│   │   └── 04_triangolo_numeri/        #   Hard
-│   ├── 02_array_slice_string_rune/     # Capitolo 2: array, slice, stringhe
-│   │   ├── 01_somma_array/
-│   │   ├── 02_max_min_slice/
-│   │   ├── 03_inversione_palindromi/
-│   │   └── 04_fusione_slice_ordinate/
+│   ├── 01_if_for_switch_functions/     # Capitolo 1: controllo flusso e funzioni (7 esercizi)
+│   │   ├── 01_numeri_pari/             #   Intro — solo funzione, main da scrivere
+│   │   ├── 02_indovina_numero/         #   Easy — funzione + main fornito
+│   │   ├── 03_fizzbuzz_avanzato/       #   Medium — 3 funzioni da implementare
+│   │   ├── 04_triangolo_numeri/        #   Hard — 3 funzioni + output formattato
+│   │   ├── 05_calcolatrice/            #   Extra — switch, scrivi tutto da zero
+│   │   ├── 06_tabelline/               #   Extra — cicli annidati, main da scrivere
+│   │   └── 07_indovina_parola/         #   Extra — stringhe + len(), main da scrivere
+│   ├── 02_array_slice_string_rune/     # Capitolo 2: array, slice, stringhe, rune (8 esercizi)
+│   │   ├── 01_somma_array/             #   Array — somma array fisso, main da scrivere
+│   │   ├── 02_medie_array/             #   Array — media, sopra/sotto media
+│   │   ├── 03_max_min_slice/           #   Slice — max/min, main da scrivere
+│   │   ├── 04_rotazione_slice/         #   Slice — rotazione, main da scrivere
+│   │   ├── 05_palindromi_stringhe/     #   Stringhe — palindromi case-insensitive
+│   │   ├── 06_conta_rune/              #   Rune — conteggio Unicode, main da scrivere
+│   │   ├── 07_anagrammi_rune/          #   Rune — anagrammi Unicode, main da scrivere
+│   │   └── 08_fusione_slice_ordinate/  #   Slice — merge, intersezione, main da scrivere
 │   ├── 03_puntatori_type_struct/       # Capitolo 3: puntatori, type, struct
 │   │   ├── 01_intro_puntatori/
 │   │   ├── 02_rettangolo_struct/
@@ -36,8 +43,8 @@ Ogni esercizio è autonomo: ha una traccia (`README.md`), uno skeletro da comple
 │   │   └── 04_elezioni/
 │   ├── 05_ricorsione/                  # Capitolo 5: ricorsione
 │   │   ├── 01_somma_ricorsiva/
-│   │   ├── 02_fibonacci/
-│   │   ├── 03_fibonacci_hanoi/
+│   │   ├── 02_fibonacci_memo/
+│   │   ├── 03_torre_hanoi/
 │   │   └── 04_espressioni_aritmetiche/
 │   └── 06_mini_progetto_ripasso/       # Capitolo 6: progetto finale
 │       └── 01_gestione_biblioteca/
@@ -56,14 +63,14 @@ Ogni esercizio è autonomo: ha una traccia (`README.md`), uno skeletro da comple
 
 Ogni esercizio ha un `README.md` con:
 - Descrizione del problema
-- Firme delle funzioni da implementare
+- Firme delle funzioni da implementare (dove applicabile)
 - Vincoli e restrizioni
 - Esempi di input/output
 - Suggerimenti
 
-### 2. Completa lo skeletro
+### 2. Completa lo scheletro
 
-Apri il file `main.go` dell'esercizio. Troverai le funzioni con il corpo `// TODO: implementare` e un `return` placeholder. Sostituisci con la tua implementazione.
+Apri il file `main.go` dell'esercizio. Troverai funzioni con `// TODO: implementare` e un `return` placeholder. In alcuni esercizi il `main()` e gia fornito, in altri devi scriverlo tu (seguito da commenti guida).
 
 ### 3. Esegui i test
 
@@ -114,54 +121,61 @@ Il messaggio ti dice: file, riga, valore ottenuto (`got`) e valore atteso (`want
 ## Catalogo Esercizi
 
 ### Capitolo 1 — If, For, Switch, Funzioni
-*Concetti: tipi base, if/else, for, switch, funzioni, return*
+*Concetti: tipi base, if/else, for, switch, funzioni, return, stringhe (len)*
 
-| # | Esercizio | Livello | Cosa si fa |
+| # | Esercizio | Formato | Cosa si fa |
 |---|-----------|---------|------------|
-| 01 | Numeri Pari | Intro | Stampa i numeri pari da 0 a n con funzione `IsEven` |
-| 02 | Indovina il Numero | Easy | Gioco interattivo: indovina 42 con feedback alto/basso |
-| 03 | FizzBuzz Avanzato | Medium | FizzBuzz + numeri primi, con switch e funzioni helper |
-| 04 | Triangolo di Numeri | Hard | Stampa triangolo di numeri consecutivi allineati |
+| 01 | Numeri Pari | Funzione + main da scrivere | Stampa i numeri pari da 0 a n |
+| 02 | Indovina il Numero | Funzioni + main fornito | Gioco: indovina 42 con feedback |
+| 03 | FizzBuzz Avanzato | 3 funzioni + main fornito | FizzBuzz + numeri primi con switch |
+| 04 | Triangolo di Numeri | 3 funzioni + main fornito | Triangolo di numeri allineati |
+| 05 | Calcolatrice | Funzione + main da scrivere | Calcolatrice con switch |
+| 06 | Tabelline | 2 funzioni + main da scrivere | Stampa tabelline con cicli annidati |
+| 07 | Indovina la Parola | Funzione + main da scrivere | Indovina parola con 6 tentativi |
 
 ### Capitolo 2 — Array, Slice, Stringhe, Rune
-*Concetti: array a dimensione fissa, slice dinamiche, stringhe come byte, rune*
+*Concetti: array fissi, slice dinamiche, stringhe come byte, rune Unicode*
 
-| # | Esercizio | Livello | Cosa si fa |
-|---|-----------|---------|------------|
-| 01 | Somma di un Array | Intro | Somma 5 numeri in un array `[5]int` |
-| 02 | Max/Min Slice | Easy | Trova massimo e minimo in una slice |
-| 03 | Inversione e Palindromi | Medium | Inverte slice, verifica palindromi stringa e numerici |
-| 04 | Fusione di Slice Ordinate | Hard | Merge efficiente, rimuovi duplicati, intersezione |
+| # | Esercizio | Sotto-argomento | Cosa si fa |
+|---|-----------|-----------------|------------|
+| 01 | Somma di un Array | Array | Somma 5 numeri in array `[5]int` |
+| 02 | Medie di un Array | Array | Media, conta sopra/sotto media |
+| 03 | Max/Min Slice | Slice | Trova massimo e minimo |
+| 04 | Rotazione Slice | Slice | Ruota slice di k posizioni |
+| 05 | Palindromi Stringhe | Stringhe | Verifica palindromi case-insensitive |
+| 06 | Conteggio Rune | Rune | Conta lettere, cifre, spazi, altri |
+| 07 | Anagrammi Rune | Rune | Verifica anagrammi Unicode |
+| 08 | Fusione Slice Ordinate | Slice | Merge O(n), rimuovi duplicati, intersezione |
 
 ### Capitolo 3 — Puntatori, Type, Struct
-*Concetti: puntatori, dereferenziazione, type personalizzati, struct, passaggio per valore/riferimento*
+*Concetti: puntatori, dereferenziazione, type personalizzati, struct*
 
 | # | Esercizio | Livello | Cosa si fa |
 |---|-----------|---------|------------|
-| 01 | Intro ai Puntatori | Intro | Scambia due variabili con puntatori, stampa indirizzi |
-| 02 | Rettangolo con Struct | Easy | Struct `Rettangolo` con Area, Perimetro, Scala |
-| 03 | Rubrica Telefonica | Medium | CRUD contatti con struct, ricerca case-insensitive |
-| 04 | Gestione Magazzino | Hard | Prodotti con carico/scarico, validazioni, statistiche |
+| 01 | Intro ai Puntatori | Intro | Scambia variabili con puntatori |
+| 02 | Rettangolo con Struct | Easy | Struct con Area, Perimetro, Scala |
+| 03 | Rubrica Telefonica | Medium | CRUD contatti, ricerca case-insensitive |
+| 04 | Gestione Magazzino | Hard | Prodotti con carico/scarico, statistiche |
 
 ### Capitolo 4 — Mappe
 *Concetti: mappe, chiavi/valori, iterazione, mappe con struct*
 
 | # | Esercizio | Livello | Cosa si fa |
 |---|-----------|---------|------------|
-| 01 | Contatore di Parole | Intro | Conta occorrenze parole con `map[string]int` |
-| 02 | Anagrammi | Easy | Raggruppa anagrammi tramite firma (caratteri ordinati) |
-| 03 | Voti degli Studenti | Medium | Registro voti con mappe, medie, distribuzioni |
-| 04 | Elezioni | Hard | Sezioni elettorali, risultati, affluenza, ballottaggio |
+| 01 | Contatore di Parole | Intro | Conta occorrenze con `map[string]int` |
+| 02 | Anagrammi | Easy | Raggruppa anagrammi tramite firma |
+| 03 | Voti degli Studenti | Medium | Registro voti, medie, distribuzioni |
+| 04 | Elezioni | Hard | Sezioni elettorali, affluenza, ballottaggio |
 
 ### Capitolo 5 — Ricorsione
 *Concetti: caso base, passo ricorsivo, stack di chiamate, memoizzazione*
 
 | # | Esercizio | Livello | Cosa si fa |
 |---|-----------|---------|------------|
-| 01 | Somma Ricorsiva | Intro | Somma da 1 a n con ricorsione semplice |
-| 02 | Fibonacci | Easy | Fibonacci ricorsivo + sequenza completa |
-| 03 | Fibonacci + Hanoi | Medium | Fibonacci con memoizzazione + Torre di Hanoi |
-| 04 | Espressioni Aritmetiche | Hard | Parser ricorsivo per espressioni con parentesi |
+| 01 | Somma Ricorsiva | Intro | Somma da 1 a n con ricorsione |
+| 02 | Fibonacci con Memo | Easy | Fibonacci ottimizzato + conta chiamate |
+| 03 | Torre di Hanoi | Medium | Risolutore ricorsivo della Torre di Hanoi |
+| 04 | Espressioni Aritmetiche | Hard | Parser ricorsivo per espressioni |
 
 ### Capitolo 6 — Mini Progetto Ripasso
 *Concetti: tutti i precedenti combinati*
@@ -189,15 +203,22 @@ make run EX=03_puntatori_type_struct/02_rettangolo_struct
 ## Progressione Consigliata
 
 1. **Segui l'ordine dei capitoli** — ogni capitolo introduce concetti nuovi che servono per il successivo
-2. **Dentro ogni capitolo, procedi in ordine** — Intro → Easy → Medium → Hard
+2. **Dentro ogni capitolo, procedi in ordine** — dal piu semplice al piu difficile
 3. **Non saltare l'Intro** — serve a familiarizzare con il formato e i concetti base
-4. **Se un esercizio è troppo difficile** — torna al precedente, consolida le basi
+4. **Se un esercizio e troppo difficile** — torna al precedente, consolida le basi
 5. **Il progetto finale (capitolo 6)** va fatto dopo aver completato almeno i capitoli 1-5
 
 ## Cosa NON Usare
 
-Gli esercizi sono progettati per essere risolti con **solo le librerie standard di base** (`fmt`, etc...). Non usare:
+Gli esercizi sono progettati per essere risolti con **solo le librerie standard di base** (`fmt`, `bufio`, `os`). Non usare:
 - `sort` package (ordina con cicli)
 - `strings` package (implementa le utility a mano)
 - `strconv` (tranne dove esplicitamente permesso)
 - Package esterni di qualsiasi tipo
+
+## Note per i Tutor
+
+- Le soluzioni complete sono in `solutions/` con la stessa struttura di `exercises/`
+- I test sono **solo** nella cartella `exercises/` — le soluzioni non hanno test duplicati
+- `test/helpers.go` contiene utility comuni per testare I/O da stdin
+- Per verificare una soluzione: `go test ./solutions/<capitolo>/<esercizio>`

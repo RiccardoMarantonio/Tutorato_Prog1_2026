@@ -4,13 +4,13 @@ import (
 	"fmt"
 )
 
-// IsMultiplo restituisce true se n è multiplo di divisore.
+// IsMultiplo restituisce true se n e multiplo di divisore.
 func IsMultiplo(n, divisore int) bool {
 	// TODO: implementare
 	return false
 }
 
-// IsPrimo restituisce true se n è un numero primo.
+// IsPrimo restituisce true se n e un numero primo.
 func IsPrimo(n int) bool {
 	// TODO: implementare
 	return false
@@ -23,9 +23,17 @@ func FizzBuzz(n int) string {
 }
 
 func main() {
-	var n int
-	fmt.Scan(&n)
-	for i := 1; i <= n; i++ {
-		fmt.Println(FizzBuzz(i))
-	}
+	// TODO:
+	// 1. Leggi un numero n da stdin
+	// 2. Per ogni i da 1 a n, stampa FizzBuzz(i) su una riga
+	//
+	// Regole di FizzBuzz+Prime:
+	//   - Multiplo di 3 e 5 → "FizzBuzz"
+	//   - Multiplo di 3     → "Fizz"
+	//   - Multiplo di 5     → "Buzz"
+	//   - Numero primo      → "Prime"
+	//   - Altrimenti        → stampa il numero
+	//
+	// Usa switch per la classificazione
+	_ = fmt.Scan // placeholder
 }
