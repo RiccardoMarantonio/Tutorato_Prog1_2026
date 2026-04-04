@@ -1,23 +1,42 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"os/exec"
+	"strings"
+	"testing"
+)
+
+func runExercise(input string) (string, error) {
+	cmd := exec.Command("go", "run", ".")
+	cmd.Stdin = strings.NewReader(input)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	if err := cmd.Run(); err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(out.String()), nil
+}
 
 func TestSommaArray(t *testing.T) {
 	tests := []struct {
-		name string
-		arr  [5]int
-		want int
+		name     string
+		input    string
+		contains string
 	}{
-		{"tutti positivi", [5]int{1, 2, 3, 4, 5}, 15},
-		{"tutti zeri", [5]int{0, 0, 0, 0, 0}, 0},
-		{"con negativi", [5]int{-1, 2, -3, 4, -5}, -3},
-		{"tutti uguali", [5]int{10, 10, 10, 10, 10}, 50},
-		{"misti", [5]int{100, 0, -100, 50, 50}, 100},
+		{"somma", "1 2 3 4 5\nsomma\n", "15"},
+		{"prodotto", "1 2 3 4 5\nprodotto\n", "120"},
+		{"prodotto con zero", "1 2 0 4 5\nprodotto\n", "0"},
+		{"op invalida", "1 2 3 4 5\ndividi\n", "Operazione non valida"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := SommaArray(tt.arr); got != tt.want {
-				t.Errorf("SommaArray(%v) = %d, want %d", tt.arr, got, tt.want)
+			got, err := runExercise(tt.input)
+			if err != nil {
+				t.Fatalf("esecuzione fallita: %v", err)
+			}
+			if !strings.Contains(got, tt.contains) {
+				t.Errorf("input %q: output non contiene %q\n%s", tt.input, tt.contains, got)
 			}
 		})
 	}

@@ -1,35 +1,67 @@
-# Introduzione ai Puntatori
+# Introduzione a Puntatori e Struct
 
-Scrivi un programma che dimostra il funzionamento base dei puntatori in Go.
+Scrivi un programma che dimostra il funzionamento base dei puntatori e delle struct in Go.
 
-Il programma deve implementare le seguenti funzioni:
+## Parte 1: Puntatori
+
+Implementa la funzione:
 
 ```go
 func Scambia(a, b *int)
 ```
-Scambia i valori di due variabili intere usando i puntatori. Dopo la chiamata, le variabili originali devono essere modificate.
+Scambia i valori di due variabili intere usando i puntatori.
+
+## Parte 2: Struct
+
+Definisci una struct `Punto` per rappresentare un punto nel piano cartesiano:
 
 ```go
-func StampaInfo(valore int, puntatore *int)
+type Punto struct {
+    X float64
+    Y float64
+}
 ```
-Stampa il valore della variabile, l'indirizzo di memoria (usando `%p`), e il valore dereferenziato dal puntatore.
 
-## Vincoli
-- Nella funzione `main`, crea due variabili intere e stampane gli indirizzi
-- Chiama `Scambia` per scambiare i valori
-- Verifica che i valori siano effettivamente scambiati dopo la chiamata
+Implementa le seguenti funzioni:
+
+```go
+func DistanzaDaOrigine(p Punto) float64
+```
+Calcola la distanza del punto dall'origine (0, 0). Formula: `sqrt(X*X + Y*Y)`.
+
+```go
+func Sposta(p *Punto, dx, dy float64)
+```
+Sposta il punto di `dx` sull'asse X e `dy` sull'asse Y. Usa un puntatore per modificare la struct originale.
 
 ## Esempio
 
-Output:
+Input:
 ```
-Prima dello scambio: x = 5, y = 10
-Indirizzo di x: 0xc000016098
-Indirizzo di y: 0xc0000160a0
-Dopo lo scambio: x = 10, y = 5
+3 4
+1 1
 ```
 
+Output:
+```
+=== Puntatori ===
+Prima: x = 5, y = 10
+Dopo:  x = 10, y = 5
+
+=== Struct Punto ===
+Punto: (3.00, 4.00)
+Distanza dall'origine: 5.00
+Dopo spostamento (1.00, 1.00): (4.00, 5.00)
+```
+
+## Vincoli
+- La funzione `Scambia` deve usare i puntatori
+- La funzione `Sposta` deve modificare la struct originale (passa per puntatore)
+- `DistanzaDaOrigine` puo ricevere la struct per valore
+- Per la radice quadrata, implementa `Sqrt(x float64) float64` con il metodo di Newton o usa un'approssimazione
+
 ## Suggerimento
-- In Go, `&variabile` restituisce l'indirizzo di memoria
+- `&variabile` restituisce l'indirizzo di memoria
 - `*puntatore` accede al valore puntato (dereferenziazione)
-- I parametri delle funzioni sono passati per valore: senza puntatori, le modifiche non sopravvivono alla funzione
+- Accedi ai campi di una struct con `p.X` e `p.Y`
+- Passare una struct per valore crea una copia, passare per puntatore permette di modificarla

@@ -7,20 +7,45 @@ func Scambia(a, b *int) {
 	// TODO: implementare
 }
 
-// StampaInfo stampa valore, indirizzo e valore dereferenziato.
-func StampaInfo(valore int, puntatore *int) {
+// Punto rappresenta un punto nel piano cartesiano.
+type Punto struct {
+	X float64
+	Y float64
+}
+
+// Sqrt approssimato con il metodo di Newton.
+func Sqrt(x float64) float64 {
+	// TODO: implementare
+	return 0
+}
+
+// DistanzaDaOrigine calcola la distanza del punto dall'origine.
+func DistanzaDaOrigine(p Punto) float64 {
+	// TODO: implementare
+	return 0
+}
+
+// Sposta sposta il punto di dx e dy. Modifica la struct originale.
+func Sposta(p *Punto, dx, dy float64) {
 	// TODO: implementare
 }
 
 func main() {
-	x := 5
-	y := 10
-	fmt.Printf("Prima dello scambio: x = %d, y = %d\n", x, y)
-	fmt.Printf("Indirizzo di x: %p\n", &x)
-	fmt.Printf("Indirizzo di y: %p\n", &y)
-
-	Scambia(&x, &y)
-
-	fmt.Printf("Dopo lo scambio: x = %d, y = %d\n", x, y)
-	StampaInfo(x, &x)
+	// TODO:
+	// Parte 1 - Puntatori:
+	//   1. Crea due variabili x=5, y=10
+	//   2. Stampa "=== Puntatori ==="
+	//   3. Stampa "Prima: x = 5, y = 10"
+	//   4. Chiama Scambia(&x, &y)
+	//   5. Stampa "Dopo:  x = 10, y = 5"
+	//
+	// Parte 2 - Struct Punto:
+	//   1. Stampa "=== Struct Punto ==="
+	//   2. Leggi px, py da stdin
+	//   3. Crea un Punto e stampa "Punto: (px, py)"
+	//   4. Stampa "Distanza dall'origine: X"
+	//   5. Leggi dx, dy da stdin
+	//   6. Chiama Sposta(&punto, dx, dy)
+	//   7. Stampa "Dopo spostamento (dx, dy): (nuovaX, nuovaY)"
+	_ = fmt.Scan // placeholder
 }

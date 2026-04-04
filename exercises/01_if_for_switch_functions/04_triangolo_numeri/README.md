@@ -10,24 +10,19 @@ Scrivi un programma che, dato un numero `n` da stdin, stampa un triangolo di num
 Il programma deve implementare le seguenti funzioni:
 
 ```go
-func CalcolaNumeroRiga(riga int) int
+func StampaRiga(inizio, fine int)
 ```
-Restituisce l'ultimo numero presente nella riga specificata (es: riga 3 → 6, perché i numeri sono 1,2,3,4,5,6).
-
-```go
-func SommaTriangolo(n int) int
-```
-Restituisce la somma di tutti i numeri nel triangolo di `n` righe.
+Stampa i numeri da `inizio` a `fine` (inclusi), ciascuno in un campo di larghezza 4.
 
 ```go
 func StampaTriangolo(n int)
 ```
-Stampa il triangolo formattato.
+Stampa il triangolo completo di `n` righe, usando `StampaRiga` per ogni riga.
 
 ## Vincoli
 - `1 <= n <= 30`
-- Allineamento obbligatorio con `fmt.Printf`
-- La funzione `StampaTriangolo` non deve restituire nulla, solo stampare
+- Allineamento obbligatorio con `fmt.Printf("%4d", num)`
+- La funzione `StampaTriangolo` deve chiamare `StampaRiga` per ogni riga
 
 ## Esempio
 
@@ -45,11 +40,6 @@ Output:
   11  12  13  14  15
 ```
 
-Output aggiuntivo (dopo il triangolo):
-```
-Ultimo numero riga 5: 15
-Somma totale: 120
-```
-
-## Estensione (opzionale)
-Prova a stampare il triangolo in forma di piramide centrata.
+## Suggerimento
+- Tieni traccia del numero corrente con una variabile che avanza ad ogni stampa
+- La riga `i` ha esattamente `i` numeri

@@ -1,117 +1,99 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"os/exec"
+	"strings"
+	"testing"
+)
 
-func newTestElezione() *Elezione {
-	return &Elezione{
-		Candidati: []string{"Rossi", "Bianchi", "Verdi"},
-		Sezioni: map[string]*Sezione{
-			"Centro": {Nome: "Centro", Voti: make(map[string]int), Elettori: 100},
-			"Nord":   {Nome: "Nord", Voti: make(map[string]int), Elettori: 80},
+func runExercise(input string) (string, error) {
+	cmd := exec.Command("go", "run", ".")
+	cmd.Stdin = strings.NewReader(input)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	if err := cmd.Run(); err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(out.String()), nil
+}
+
+func TestElezioni(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		contains []string
+	}{
+		{
+			name: "flusso completo",
+			input: "CANDIDATI Rossi Bianchi Verdi\n" +
+				"SEZIONE Centro 1000\n" +
+				"SEZIONE Nord 800\n" +
+				"VOTO Centro Rossi\n" +
+				"VOTO Centro Bianchi\n" +
+				"VOTO Nord Verdi\n" +
+				"RISULTATI\n" +
+				"AFFLUENZA\n" +
+				"VINCITORE\n" +
+				"FINE",
+			contains: []string{
+				"Candidati registrati",
+				"Sezione Centro creata",
+				"Sezione Nord creata",
+				"Voto registrato: Centro",
+				"Voto registrato: Nord",
+				"Risultati Nazionali",
+				"Rossi: 1",
+				"Bianchi: 1",
+				"Verdi: 1",
+				"Affluenza",
+				"Vincitore",
+			},
+		},
+		{
+			name: "ballottaggio",
+			input: "CANDIDATI Rossi Bianchi Verdi\n" +
+				"SEZIONE Centro 1000\n" +
+				"VOTO Centro Rossi\n" +
+				"VOTO Centro Rossi\n" +
+				"VOTO Centro Bianchi\n" +
+				"BALLOTTAGGIO\n" +
+				"FINE",
+			contains: []string{
+				"Ballottaggio",
+			},
+		},
+		{
+			name: "voto sezione inesistente",
+			input: "CANDIDATI Rossi\n" +
+				"VOTO Centro Rossi\n" +
+				"FINE",
+			contains: []string{
+				"Errore",
+			},
+		},
+		{
+			name: "voto candidato non valido",
+			input: "CANDIDATI Rossi\n" +
+				"SEZIONE Centro 100\n" +
+				"VOTO Centro Bianchi\n" +
+				"FINE",
+			contains: []string{
+				"Errore",
+			},
 		},
 	}
-}
-
-func TestRegistraVoto(t *testing.T) {
-	e := newTestElezione()
-
-	err := RegistraVoto(e, "Centro", "Rossi")
-	if err != nil {
-		t.Errorf("RegistraVoto: errore inatteso: %v", err)
-	}
-	if e.Sezioni["Centro"].Voti["Rossi"] != 1 {
-		t.Errorf("Voti Centro[Rossi] = %d, want 1", e.Sezioni["Centro"].Voti["Rossi"])
-	}
-	if e.Sezioni["Centro"].Votanti != 1 {
-		t.Errorf("Votanti Centro = %d, want 1", e.Sezioni["Centro"].Votanti)
-	}
-
-	// Sezione inesistente
-	err = RegistraVoto(e, "Sud", "Rossi")
-	if err == nil {
-		t.Error("RegistraVoto sezione inesistente: errore atteso, got nil")
-	}
-
-	// Candidato non valido
-	err = RegistraVoto(e, "Centro", "Neri")
-	if err == nil {
-		t.Error("RegistraVoto candidato non valido: errore atteso, got nil")
-	}
-}
-
-func TestRisultatiNazionali(t *testing.T) {
-	e := newTestElezione()
-	RegistraVoto(e, "Centro", "Rossi")
-	RegistraVoto(e, "Centro", "Rossi")
-	RegistraVoto(e, "Nord", "Bianchi")
-	RegistraVoto(e, "Nord", "Verdi")
-
-	ris := RisultatiNazionali(*e)
-	if ris["Rossi"] != 2 {
-		t.Errorf("Rossi: %d, want 2", ris["Rossi"])
-	}
-	if ris["Bianchi"] != 1 {
-		t.Errorf("Bianchi: %d, want 1", ris["Bianchi"])
-	}
-	if ris["Verdi"] != 1 {
-		t.Errorf("Verdi: %d, want 1", ris["Verdi"])
-	}
-}
-
-func TestAffluenza(t *testing.T) {
-	e := newTestElezione()
-	RegistraVoto(e, "Centro", "Rossi")
-	RegistraVoto(e, "Centro", "Bianchi")
-
-	aff := Affluenza(*e)
-	diff := aff["Centro"] - 2.0
-	if diff < 0 {
-		diff = -diff
-	}
-	if diff > 0.01 {
-		t.Errorf("Affluenza Centro = %.2f%%, want 2.00%%", aff["Centro"])
-	}
-	if aff["Nord"] != 0.0 {
-		t.Errorf("Affluenza Nord = %.2f%%, want 0.00%%", aff["Nord"])
-	}
-}
-
-func TestVincitore(t *testing.T) {
-	e := newTestElezione()
-	RegistraVoto(e, "Centro", "Rossi")
-	RegistraVoto(e, "Centro", "Rossi")
-	RegistraVoto(e, "Nord", "Bianchi")
-
-	vinc, err := Vincitore(*e)
-	if err != nil {
-		t.Fatalf("Vincitore: errore inatteso: %v", err)
-	}
-	if vinc != "Rossi" {
-		t.Errorf("Vincitore = %q, want %q", vinc, "Rossi")
-	}
-
-	// Nessun voto
-	e2 := newTestElezione()
-	_, err = Vincitore(*e2)
-	if err == nil {
-		t.Error("Vincitore senza voti: errore atteso, got nil")
-	}
-}
-
-func TestBallottaggio(t *testing.T) {
-	e := newTestElezione()
-	RegistraVoto(e, "Centro", "Rossi")
-	RegistraVoto(e, "Centro", "Rossi")
-	RegistraVoto(e, "Nord", "Bianchi")
-	RegistraVoto(e, "Nord", "Bianchi")
-	RegistraVoto(e, "Centro", "Verdi")
-
-	c1, c2, err := Ballottaggio(*e)
-	if err != nil {
-		t.Fatalf("Ballottaggio: errore inatteso: %v", err)
-	}
-	// Rossi e Bianchi sono i primi due (entrambi con 2 voti)
-	if (c1 != "Rossi" && c1 != "Bianchi") || (c2 != "Rossi" && c2 != "Bianchi") {
-		t.Errorf("Ballottaggio = %s vs %s, want Rossi vs Bianchi", c1, c2)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := runExercise(tt.input)
+			if err != nil {
+				t.Fatalf("esecuzione fallita: %v", err)
+			}
+			for _, c := range tt.contains {
+				if !strings.Contains(got, c) {
+					t.Errorf("output non contiene %q:\n%s", c, got)
+				}
+			}
+		})
 	}
 }

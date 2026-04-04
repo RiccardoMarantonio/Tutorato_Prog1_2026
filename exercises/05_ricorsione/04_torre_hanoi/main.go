@@ -1,21 +1,9 @@
 package main
 
-import "fmt"
+// Scrivi qui il tuo programma.
+// Leggi un numero n da stdin (numero di dischi) e risolvi la Torre di Hanoi.
+// Stampa tutte le mosse numerate e il totale delle mosse.
+// Input: un numero intero n (1 <= n <= 15)
+// Output: "Torre di Hanoi (N dischi):", mosse numerate, "Totale mosse: X"
 
-// Hanoi risolve la torre di Hanoi e restituisce la lista di mosse.
-func Hanoi(n int, sorgente, ausiliario, destinazione string) []string {
-	// TODO: implementare
-	return nil
-}
-
-func main() {
-	// TODO:
-	// 1. Leggi un numero n da stdin (numero di dischi)
-	// 2. Chiama Hanoi(n, "A", "B", "C") per ottenere le mosse
-	// 3. Stampa "Torre di Hanoi (n dischi):"
-	// 4. Per ogni mossa, stampa "N. mossa" (numerata da 1)
-	// 5. Stampa "Totale mosse: X"
-	//
-	// Suggerimento: la slice di stringhe restituita da Hanoi si itera con range
-	_ = fmt.Scan // placeholder
-}
+func main() {}

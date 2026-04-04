@@ -2,17 +2,12 @@
 
 Scrivi un programma che genera un numero segreto (fissato a 42 per semplicità) e chiede all'utente di indovinarlo. Dopo ogni tentativo, il programma dice se il numero inserito è più alto o più basso del segreto. Il gioco termina quando l'utente indovina.
 
-Il programma deve implementare le seguenti funzioni:
+Il programma deve implementare la seguente funzione:
 
 ```go
 func Confronta(tentativo, segreto int) string
 ```
 Restituisce `"Troppo alto"` se tentativo > segreto, `"Troppo basso"` se tentativo < segreto, `"Indovinato!"` se sono uguali.
-
-```go
-func ContaTentativi(storico []int) int
-```
-Restituisce il numero di tentativi effettuati.
 
 ## Vincoli
 - Il numero segreto è fissato a `42`
@@ -43,4 +38,4 @@ Hai indovinato in 4 tentativi!
 ## Suggerimento
 - Usa un ciclo `for` senza condizione (`for { ... }`) per il loop di gioco
 - Usa `break` per uscire quando il giocatore indovina
-- Una slice può essere usata per tenere traccia dei tentativi
+- Basta una variabile `int` per contare i tentativi
