@@ -7,7 +7,7 @@ Il programma deve implementare le seguenti funzioni:
 ```go
 func MergeSorted(a, b []int) []int
 ```
-Date due slice gia ordinate, restituisce una nuova slice ordinata con tutti gli elementi (merge efficiente O(n)).
+Date due slice gia ordinate, restituisce una nuova slice ordinata con tutti gli elementi.
 
 ```go
 func RimuoviDuplicati(slice []int) []int
@@ -23,8 +23,10 @@ Date due slice ordinate, restituisce gli elementi comuni (senza duplicati).
 
 Input:
 ```
-Slice A: 1 3 5 7 9
-Slice B: 2 3 5 8 9 10
+5
+1 3 5 7 9
+6
+2 3 5 8 9 10
 ```
 
 Output:
@@ -37,8 +39,8 @@ Intersezione: [3 5 9]
 ## Vincoli
 - Le slice in input sono gia ordinate
 - Non usare `sort` o librerie esterne
-- Merge deve essere O(n), non concatenare + ordinare
+- Non concatenare le due slice e poi ordinare: sfrutta il fatto che sono gia ordinate
 
 ## Suggerimento
-- Per MergeSorted, usa due indici che avanzano simultaneamente
+- Per MergeSorted, usa due indici che avanzano simultaneamente nelle due slice
 - Per Intersezione, avanza l'indice della slice con il valore minore

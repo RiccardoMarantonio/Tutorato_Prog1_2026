@@ -1,69 +1,78 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"os/exec"
+	"strings"
+	"testing"
+)
 
-func TestArea(t *testing.T) {
+func runExercise(input string) (string, error) {
+	cmd := exec.Command("go", "run", ".")
+	cmd.Stdin = strings.NewReader(input)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	if err := cmd.Run(); err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(out.String()), nil
+}
+
+func TestRettangoloStruct(t *testing.T) {
 	tests := []struct {
-		name string
-		r    Rettangolo
-		want float64
+		name     string
+		input    string
+		contains []string
 	}{
-		{"base", Rettangolo{4, 6}, 24},
-		{"quadrato", Rettangolo{5, 5}, 25},
-		{"zero", Rettangolo{0, 10}, 0},
-		{"decimale", Rettangolo{2.5, 4}, 10},
+		{
+			name:  "base",
+			input: "4 6\n2",
+			contains: []string{
+				"Base=4.00",
+				"Altezza=6.00",
+				"Area: 24.00",
+				"Perimetro: 20.00",
+				"Dopo scala x2: Base=8.00",
+				"Altezza=12.00",
+				"Nuova area: 96.00",
+			},
+		},
+		{
+			name:  "quadrato",
+			input: "5 5\n3",
+			contains: []string{
+				"Base=5.00",
+				"Altezza=5.00",
+				"Area: 25.00",
+				"Perimetro: 20.00",
+				"Dopo scala x3: Base=15.00",
+				"Altezza=15.00",
+				"Nuova area: 225.00",
+			},
+		},
+		{
+			name:  "fattore uno",
+			input: "10 3\n1",
+			contains: []string{
+				"Area: 30.00",
+				"Perimetro: 26.00",
+				"Dopo scala x1: Base=10.00",
+				"Altezza=3.00",
+				"Nuova area: 30.00",
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := Area(tt.r)
-			diff := got - tt.want
-			if diff < 0 {
-				diff = -diff
+			got, err := runExercise(tt.input)
+			if err != nil {
+				t.Fatalf("esecuzione fallita: %v", err)
 			}
-			if diff > 0.01 {
-				t.Errorf("Area(%v) = %.2f, want %.2f", tt.r, got, tt.want)
-			}
-		})
-	}
-}
-
-func TestPerimetro(t *testing.T) {
-	tests := []struct {
-		name string
-		r    Rettangolo
-		want float64
-	}{
-		{"base", Rettangolo{4, 6}, 20},
-		{"quadrato", Rettangolo{5, 5}, 20},
-		{"zero", Rettangolo{0, 10}, 20},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := Perimetro(tt.r)
-			diff := got - tt.want
-			if diff < 0 {
-				diff = -diff
-			}
-			if diff > 0.01 {
-				t.Errorf("Perimetro(%v) = %.2f, want %.2f", tt.r, got, tt.want)
+			for _, c := range tt.contains {
+				if !strings.Contains(got, c) {
+					t.Errorf("output non contiene %q:\n%s", c, got)
+				}
 			}
 		})
-	}
-}
-
-func TestScala(t *testing.T) {
-	r := Rettangolo{4, 6}
-	Scala(&r, 2)
-	if r.Base != 8 || r.Altezza != 12 {
-		t.Errorf("Scala x2: Base = %.2f, Altezza = %.2f, want 8, 12", r.Base, r.Altezza)
-	}
-}
-
-func TestScalaNonModificaOriginale(t *testing.T) {
-	r := Rettangolo{3, 5}
-	copia := r
-	Scala(&r, 3)
-	if copia.Base != 3 || copia.Altezza != 5 {
-		t.Errorf("La copia è stata modificata: Base = %.2f, Altezza = %.2f", copia.Base, copia.Altezza)
 	}
 }

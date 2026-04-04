@@ -1,64 +1,99 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"os/exec"
+	"strings"
+	"testing"
+)
 
-func TestAggiungi(t *testing.T) {
-	r := &Rubrica{}
-	Aggiungi(r, Contatto{"Mario", "Rossi", "333111"})
-	Aggiungi(r, Contatto{"Luigi", "Bianchi", "333222"})
-
-	if len(r.Contatti) != 2 {
-		t.Errorf("len(Contatti) = %d, want 2", len(r.Contatti))
+func runExercise(input string) (string, error) {
+	cmd := exec.Command("go", "run", ".")
+	cmd.Stdin = strings.NewReader(input)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	if err := cmd.Run(); err != nil {
+		return "", err
 	}
-
-	// Duplicato per telefono: non deve essere aggiunto
-	Aggiungi(r, Contatto{"Mario", "Verdi", "333111"})
-	if len(r.Contatti) != 2 {
-		t.Errorf("duplicato aggiunto: len(Contatti) = %d, want 2", len(r.Contatti))
-	}
+	return strings.TrimSpace(out.String()), nil
 }
 
-func TestCercaPerNome(t *testing.T) {
-	r := Rubrica{Contatti: []Contatto{
-		{"Mario", "Rossi", "333111"},
-		{"Luigi", "Bianchi", "333222"},
-		{"Mario", "Verdi", "333333"},
-	}}
-
-	results := CercaPerNome(r, "Mario")
-	if len(results) != 2 {
-		t.Errorf("CercaPerNome(Mario) = %d risultati, want 2", len(results))
+func TestRubricaTelefonica(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		contains []string
+	}{
+		{
+			name: "aggiungi e cerca",
+			input: "AGGIUNGI Mario Rossi 3331234567\n" +
+				"AGGIUNGI Luigi Bianchi 3339876543\n" +
+				"AGGIUNGI Mario Verdi 3331112222\n" +
+				"CERCA Mario\n" +
+				"STAMPA\n" +
+				"FINE",
+			contains: []string{
+				"Contatto aggiunto: Mario Rossi",
+				"Contatto aggiunto: Luigi Bianchi",
+				"Contatto aggiunto: Mario Verdi",
+				"Risultati ricerca",
+				"Rossi, Mario - 3331234567",
+				"Verdi, Mario - 3331112222",
+				"=== Rubrica ===",
+			},
+		},
+		{
+			name: "rimuovi contatto",
+			input: "AGGIUNGI Mario Rossi 3331234567\n" +
+				"AGGIUNGI Luigi Bianchi 3339876543\n" +
+				"RIMUOVI 3339876543\n" +
+				"STAMPA\n" +
+				"FINE",
+			contains: []string{
+				"Contatto rimosso: 3339876543",
+				"Rossi, Mario - 3331234567",
+			},
+		},
+		{
+			name: "duplicato telefono",
+			input: "AGGIUNGI Mario Rossi 3331234567\n" +
+				"AGGIUNGI Mario Verdi 3331234567\n" +
+				"STAMPA\n" +
+				"FINE",
+			contains: []string{
+				"Contatto aggiunto: Mario Rossi",
+			},
+		},
+		{
+			name: "ricerca case insensitive",
+			input: "AGGIUNGI Mario Rossi 3331234567\n" +
+				"CERCA mario\n" +
+				"FINE",
+			contains: []string{
+				"Rossi, Mario - 3331234567",
+			},
+		},
+		{
+			name: "rimuovi inesistente",
+			input: "AGGIUNGI Mario Rossi 3331234567\n" +
+				"RIMUOVI 0000000000\n" +
+				"FINE",
+			contains: []string{
+				"Contatto non trovato: 0000000000",
+			},
+		},
 	}
-
-	// Case-insensitive
-	results2 := CercaPerNome(r, "mario")
-	if len(results2) != 2 {
-		t.Errorf("CercaPerNome(mario) = %d risultati, want 2", len(results2))
-	}
-
-	results3 := CercaPerNome(r, "Luigi")
-	if len(results3) != 1 {
-		t.Errorf("CercaPerNome(Luigi) = %d risultati, want 1", len(results3))
-	}
-}
-
-func TestRimuovi(t *testing.T) {
-	r := &Rubrica{Contatti: []Contatto{
-		{"Mario", "Rossi", "333111"},
-		{"Luigi", "Bianchi", "333222"},
-	}}
-
-	if !Rimuovi(r, "333111") {
-		t.Error("Rimuovi(333111) = false, want true")
-	}
-	if len(r.Contatti) != 1 {
-		t.Errorf("len(Contatti) dopo rimozione = %d, want 1", len(r.Contatti))
-	}
-	if r.Contatti[0].Nome != "Luigi" {
-		t.Errorf("Contatto rimasto: %s, want Luigi", r.Contatti[0].Nome)
-	}
-
-	if Rimuovi(r, "000000") {
-		t.Error("Rimuovi(000000) = true, want false")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := runExercise(tt.input)
+			if err != nil {
+				t.Fatalf("esecuzione fallita: %v", err)
+			}
+			for _, c := range tt.contains {
+				if !strings.Contains(got, c) {
+					t.Errorf("output non contiene %q:\n%s", c, got)
+				}
+			}
+		})
 	}
 }

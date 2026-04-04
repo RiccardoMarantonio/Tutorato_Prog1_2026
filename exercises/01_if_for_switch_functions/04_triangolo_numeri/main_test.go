@@ -2,67 +2,53 @@ package main
 
 import (
 	"bytes"
-	"io"
-	"os"
+	"os/exec"
+	"strings"
 	"testing"
 )
 
-func TestCalcolaNumeroRiga(t *testing.T) {
-	tests := []struct {
-		riga int
-		want int
-	}{
-		{1, 1},
-		{2, 3},
-		{3, 6},
-		{4, 10},
-		{5, 15},
+func runExercise(input string) (string, error) {
+	cmd := exec.Command("go", "run", ".")
+	cmd.Stdin = strings.NewReader(input)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	if err := cmd.Run(); err != nil {
+		return "", err
 	}
-	for _, tt := range tests {
-		t.Run("", func(t *testing.T) {
-			if got := CalcolaNumeroRiga(tt.riga); got != tt.want {
-				t.Errorf("CalcolaNumeroRiga(%d) = %d, want %d", tt.riga, got, tt.want)
-			}
-		})
-	}
+	return strings.TrimSpace(out.String()), nil
 }
 
-func TestSommaTriangolo(t *testing.T) {
+func TestTriangolo(t *testing.T) {
 	tests := []struct {
-		n    int
-		want int
+		name  string
+		input string
+		want  string
 	}{
-		{1, 1},
-		{2, 6},
-		{3, 21},
-		{4, 55},
-		{5, 120},
+		{
+			"base",
+			"5\n",
+			"   1\n   2   3\n   4   5   6\n   7   8   9  10\n  11  12  13  14  15",
+		},
+		{
+			"piccolo",
+			"3\n",
+			"   1\n   2   3\n   4   5   6",
+		},
+		{
+			"uno",
+			"1\n",
+			"   1",
+		},
 	}
 	for _, tt := range tests {
-		t.Run("", func(t *testing.T) {
-			if got := SommaTriangolo(tt.n); got != tt.want {
-				t.Errorf("SommaTriangolo(%d) = %d, want %d", tt.n, got, tt.want)
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := runExercise(tt.input)
+			if err != nil {
+				t.Fatalf("esecuzione fallita: %v", err)
+			}
+			if got != tt.want {
+				t.Errorf("input %q:\ngot:\n%s\nwant:\n%s", tt.input, got, tt.want)
 			}
 		})
-	}
-}
-
-func TestStampaTriangolo(t *testing.T) {
-	capture := func(fn func()) string {
-		old := os.Stdout
-		r, w, _ := os.Pipe()
-		os.Stdout = w
-		fn()
-		w.Close()
-		os.Stdout = old
-		var buf bytes.Buffer
-		io.Copy(&buf, r)
-		r.Close()
-		return buf.String()
-	}
-
-	out := capture(func() { StampaTriangolo(3) })
-	if out != "   1\n   2   3\n   4   5   6\n" {
-		t.Errorf("StampaTriangolo(3) output non atteso:\n%q", out)
 	}
 }

@@ -2,28 +2,35 @@ package main
 
 import "fmt"
 
-func Calcola(a int, op string, b int) string {
+func eseguiOp(a, b int, op rune) int {
 	switch op {
-	case "+":
-		return fmt.Sprintf("%d", a+b)
-	case "-":
-		return fmt.Sprintf("%d", a-b)
-	case "*":
-		return fmt.Sprintf("%d", a*b)
-	case "/":
-		if b == 0 {
-			return "Divisione per zero"
-		}
-		return fmt.Sprintf("%d", a/b)
+	case '+':
+		return a + b
+	case '-':
+		return a - b
+	case '*':
+		return a * b
+	case '/':
+		return a / b
 	default:
-		return "Operatore non valido"
+		return 0
 	}
 }
 
 func main() {
-	var a int
-	var op string
-	var b int
-	fmt.Scan(&a, &op, &b)
-	fmt.Println(Calcola(a, op, b))
+	var a, b int
+	var opStr string
+	fmt.Scan(&a, &opStr, &b)
+	op := []rune(opStr)[0]
+
+	switch op {
+	case '+', '-', '*', '/':
+		if op == '/' && b == 0 {
+			fmt.Println("Divisione per zero")
+		} else {
+			fmt.Println(eseguiOp(a, b, op))
+		}
+	default:
+		fmt.Println("Operatore non valido")
+	}
 }

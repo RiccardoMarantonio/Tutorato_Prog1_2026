@@ -1,14 +1,7 @@
 package main
 
-// ConfrontaParola confronta l'input con la parola segreta.
-// Restituisce un messaggio di feedback.
-func ConfrontaParola(input, segreto string) string {
-	// TODO: implementare
-	return ""
-}
+// Scrivi qui il tuo programma.
+// Indovina parola: parola segreta "golang" (6 lettere), 6 tentativi.
+// Feedback: "Troppo corto", "Troppo lungo", "Lunghezza giusta, riprova!", "Hai indovinato!"
 
-func main() {
-	// TODO: implementa il gioco con 6 tentativi
-	// Leggi parole da stdin, confronta, stampa feedback
-	// Alla fine stampa vittoria o sconfitta
-}
+func main() {}

@@ -1,35 +1,73 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"os/exec"
+	"strings"
+	"testing"
+)
 
-func TestHanoi(t *testing.T) {
-	tests := []struct {
-		n     int
-		mosse int
-	}{
-		{1, 1},
-		{2, 3},
-		{3, 7},
-		{4, 15},
-		{5, 31},
+func runExercise(input string) (string, error) {
+	cmd := exec.Command("go", "run", ".")
+	cmd.Stdin = strings.NewReader(input)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	if err := cmd.Run(); err != nil {
+		return "", err
 	}
-	for _, tt := range tests {
-		t.Run("", func(t *testing.T) {
-			mosse := Hanoi(tt.n, "A", "B", "C")
-			if len(mosse) != tt.mosse {
-				t.Errorf("Hanoi(%d) = %d mosse, want %d", tt.n, len(mosse), tt.mosse)
-			}
-		})
-	}
+	return strings.TrimSpace(out.String()), nil
 }
 
-func TestHanoiMosseValide(t *testing.T) {
-	mosse := Hanoi(3, "A", "B", "C")
-	if len(mosse) == 0 {
-		t.Fatal("Hanoi(3) non ha restituito mosse")
+func TestTorreHanoi(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		want     string
+		contains []string
+	}{
+		{
+			name:  "un disco",
+			input: "1",
+			want:  "",
+			contains: []string{
+				"Torre di Hanoi (1 dischi)",
+				"1. Sposta disco da A a C",
+				"Totale mosse: 1",
+			},
+		},
+		{
+			name:  "tre dischi",
+			input: "3",
+			want:  "",
+			contains: []string{
+				"Torre di Hanoi (3 dischi)",
+				"Totale mosse: 7",
+			},
+		},
+		{
+			name:  "due dischi",
+			input: "2",
+			want:  "",
+			contains: []string{
+				"Torre di Hanoi (2 dischi)",
+				"Totale mosse: 3",
+			},
+		},
 	}
-	last := mosse[len(mosse)-1]
-	if last[len(last)-1] != 'C' {
-		t.Errorf("Ultima mossa non termina su C: %q", last)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := runExercise(tt.input)
+			if err != nil {
+				t.Fatalf("esecuzione fallita: %v", err)
+			}
+			if tt.want != "" && got != tt.want {
+				t.Errorf("input %q:\ngot:\n%s\nwant:\n%s", tt.input, got, tt.want)
+			}
+			for _, c := range tt.contains {
+				if !strings.Contains(got, c) {
+					t.Errorf("output non contiene %q:\n%s", c, got)
+				}
+			}
+		})
 	}
 }

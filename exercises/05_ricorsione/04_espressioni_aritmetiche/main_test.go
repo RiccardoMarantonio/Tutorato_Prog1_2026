@@ -1,87 +1,83 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"os/exec"
+	"strings"
+	"testing"
+)
 
-func TestValutaEspressione(t *testing.T) {
+func runExercise(input string) (string, error) {
+	cmd := exec.Command("go", "run", ".")
+	cmd.Stdin = strings.NewReader(input)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	if err := cmd.Run(); err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(out.String()), nil
+}
+
+func TestEspressioniAritmetiche(t *testing.T) {
 	tests := []struct {
-		expr string
-		want float64
+		name     string
+		input    string
+		contains []string
 	}{
-		{"3 + 5", 8},
-		{"(3 + 5) * 2", 16},
-		{"10 / (2 + 3)", 2},
-		{"((1 + 2) * (3 + 4))", 21},
-		{"2 * 3 + 4", 10},
-		{"2 + 3 * 4", 14},
-		{"10 - 3 - 2", 5},
-		{"100", 100},
+		{
+			name:  "somma semplice",
+			input: "3 + 5",
+			contains: []string{
+				"3 + 5 = 8.00",
+				"+: 1",
+				"Massima profondita parentesi: 0",
+				"Espressione valida: true",
+			},
+		},
+		{
+			name:  "con parentesi",
+			input: "(3 + 5) * 2",
+			contains: []string{
+				"(3 + 5) * 2 = 16.00",
+				"+: 1",
+				"*: 1",
+				"Massima profondita parentesi: 1",
+				"Espressione valida: true",
+			},
+		},
+		{
+			name:  "precedenza operatori",
+			input: "2 + 3 * 4",
+			contains: []string{
+				"2 + 3 * 4 = 14.00",
+			},
+		},
+		{
+			name:  "parentesi annidate",
+			input: "((1 + 2) * (3 + 4))",
+			contains: []string{
+				"= 21.00",
+				"Massima profondita parentesi: 2",
+			},
+		},
+		{
+			name:  "espressione non valida",
+			input: "((3 + 5)",
+			contains: []string{
+				"Espressione valida: false",
+			},
+		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.expr, func(t *testing.T) {
-			got, err := ValutaEspressione(tt.expr)
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := runExercise(tt.input)
 			if err != nil {
-				t.Fatalf("ValutaEspressione(%q) error: %v", tt.expr, err)
+				t.Fatalf("esecuzione fallita: %v", err)
 			}
-			diff := got - tt.want
-			if diff < 0 {
-				diff = -diff
-			}
-			if diff > 0.01 {
-				t.Errorf("ValutaEspressione(%q) = %.2f, want %.2f", tt.expr, got, tt.want)
-			}
-		})
-	}
-}
-
-func TestValutaEspressioneDivisioneZero(t *testing.T) {
-	_, err := ValutaEspressione("10 / 0")
-	if err == nil {
-		t.Error("ValutaEspressione(10 / 0): errore atteso, got nil")
-	}
-}
-
-func TestContaOperatori(t *testing.T) {
-	ops := ContaOperatori("3 + 5 * 2 - 1")
-	if ops["+"] != 1 || ops["*"] != 1 || ops["-"] != 1 || ops["/"] != 0 {
-		t.Errorf("ContaOperatori: %+v", ops)
-	}
-}
-
-func TestProfonditaParentesi(t *testing.T) {
-	tests := []struct {
-		expr string
-		want int
-	}{
-		{"3 + 5", 0},
-		{"(3 + 5)", 1},
-		{"((1 + 2) * 3)", 2},
-		{"(((1)))", 3},
-	}
-	for _, tt := range tests {
-		t.Run(tt.expr, func(t *testing.T) {
-			if got := ProfonditaParentesi(tt.expr); got != tt.want {
-				t.Errorf("ProfonditaParentesi(%q) = %d, want %d", tt.expr, got, tt.want)
-			}
-		})
-	}
-}
-
-func TestEValida(t *testing.T) {
-	tests := []struct {
-		expr string
-		want bool
-	}{
-		{"3 + 5", true},
-		{"(3 + 5)", true},
-		{"((3 + 5)", false},
-		{"3 +", false},
-		{"3 ++ 5", false},
-		{"", false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.expr, func(t *testing.T) {
-			if got := EValida(tt.expr); got != tt.want {
-				t.Errorf("EValida(%q) = %v, want %v", tt.expr, got, tt.want)
+			for _, c := range tt.contains {
+				if !strings.Contains(got, c) {
+					t.Errorf("output non contiene %q:\n%s", c, got)
+				}
 			}
 		})
 	}

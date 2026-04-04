@@ -1,30 +1,9 @@
 package main
 
-import "fmt"
+// Scrivi qui il tuo programma.
+// Leggi n (numero di elementi), poi n numeri interi.
+// Stampa il massimo e il minimo tra i numeri letti.
+// Input: prima riga n, seconda riga n numeri separati da spazio
+// Output: "Max: X" e "Min: Y"
 
-// TrovaMax restituisce il valore massimo nella slice.
-func TrovaMax(slice []int) int {
-	// TODO: implementare
-	return 0
-}
-
-// TrovaMin restituisce il valore minimo nella slice.
-func TrovaMin(slice []int) int {
-	// TODO: implementare
-	return 0
-}
-
-// TrovaMaxMin restituisce massimo e minimo in una sola funzione.
-func TrovaMaxMin(slice []int) (int, int) {
-	// TODO: implementare
-	return 0, 0
-}
-
-func main() {
-	// TODO:
-	// 1. Leggi n da stdin
-	// 2. Crea una slice con make([]int, n)
-	// 3. Leggi n numeri
-	// 4. Stampa Max e Min usando le funzioni
-	_ = fmt.Scan // placeholder
-}
+func main() {}

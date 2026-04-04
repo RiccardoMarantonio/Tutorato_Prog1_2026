@@ -1,43 +1,48 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"os/exec"
+	"strings"
+	"testing"
+)
 
-func TestStampaTabellina(t *testing.T) {
-	tests := []struct {
-		n     int
-		linee int
-	}{
-		{1, 11}, // 10 righe + 1 riga vuota
-		{2, 22}, // 2 * (10 + 1)
-		{3, 33}, // 3 * (10 + 1)
+func runExercise(input string) (string, error) {
+	cmd := exec.Command("go", "run", ".")
+	cmd.Stdin = strings.NewReader(input)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	if err := cmd.Run(); err != nil {
+		return "", err
 	}
-	for _, tt := range tests {
-		t.Run("", func(t *testing.T) {
-			out := catturaOutput(func() { StampaTabelline(tt.n) })
-			righe := contaRighe(out)
-			if righe != tt.linee {
-				t.Errorf("StampaTabelline(%d) = %d righe, want %d", tt.n, righe, tt.linee)
-			}
-		})
-	}
+	return strings.TrimSpace(out.String()), nil
 }
 
-func TestRigaTabellina(t *testing.T) {
+func TestTabelline(t *testing.T) {
 	tests := []struct {
-		base int
-		molt int
-		want string
+		name  string
+		input string
+		want  string
 	}{
-		{1, 1, "1 x 1 = 1"},
-		{2, 3, "2 x 3 = 6"},
-		{7, 8, "7 x 8 = 56"},
-		{12, 10, "12 x 10 = 120"},
+		{
+			"due",
+			"2\n",
+			"1 x 1 = 1\n1 x 2 = 2\n1 x 3 = 3\n1 x 4 = 4\n1 x 5 = 5\n1 x 6 = 6\n1 x 7 = 7\n1 x 8 = 8\n1 x 9 = 9\n1 x 10 = 10\n\n2 x 1 = 2\n2 x 2 = 4\n2 x 3 = 6\n2 x 4 = 8\n2 x 5 = 10\n2 x 6 = 12\n2 x 7 = 14\n2 x 8 = 16\n2 x 9 = 18\n2 x 10 = 20",
+		},
+		{
+			"uno",
+			"1\n",
+			"1 x 1 = 1\n1 x 2 = 2\n1 x 3 = 3\n1 x 4 = 4\n1 x 5 = 5\n1 x 6 = 6\n1 x 7 = 7\n1 x 8 = 8\n1 x 9 = 9\n1 x 10 = 10",
+		},
 	}
 	for _, tt := range tests {
-		t.Run("", func(t *testing.T) {
-			got := RigaTabellina(tt.base, tt.molt)
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := runExercise(tt.input)
+			if err != nil {
+				t.Fatalf("esecuzione fallita: %v", err)
+			}
 			if got != tt.want {
-				t.Errorf("RigaTabellina(%d, %d) = %q, want %q", tt.base, tt.molt, got, tt.want)
+				t.Errorf("input %q:\ngot:\n%s\nwant:\n%s", tt.input, got, tt.want)
 			}
 		})
 	}
