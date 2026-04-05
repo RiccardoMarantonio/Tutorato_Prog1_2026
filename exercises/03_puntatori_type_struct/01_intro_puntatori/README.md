@@ -59,9 +59,3 @@ Dopo spostamento (1.00, 1.00): (4.00, 5.00)
 - La funzione `Sposta` deve modificare la struct originale (passa per puntatore)
 - `DistanzaDaOrigine` puo ricevere la struct per valore
 - Per la radice quadrata, implementa `Sqrt(x float64) float64` con il metodo di Newton o usa un'approssimazione
-
-## Suggerimento
-- `&variabile` restituisce l'indirizzo di memoria
-- `*puntatore` accede al valore puntato (dereferenziazione)
-- Accedi ai campi di una struct con `p.X` e `p.Y`
-- Passare una struct per valore crea una copia, passare per puntatore permette di modificarla

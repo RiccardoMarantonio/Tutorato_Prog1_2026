@@ -39,6 +39,5 @@ Chiamate con memo: 19
 ```
 
 ## Suggerimento
-- La memoizzazione si implementa con una `map[int]int` o `[]int` passata come parametro helper
 - Senza memoizzazione, F(40) richiede oltre 300 milioni di chiamate
 - Con memoizzazione, F(50) richiede solo ~99 chiamate

@@ -41,5 +41,4 @@ Output:
 - Scrivi tutto il programma da zero
 
 ## Suggerimento
-- Converti la stringa in `[]rune` per lavorare con i caratteri Unicode
 - Ordina le rune e confronta le due slice

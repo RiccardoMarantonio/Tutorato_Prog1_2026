@@ -49,6 +49,4 @@ Ruotata:   \u0301cafe
 - Non usare l'indicizzazione diretta sulla string (`s[i]`) per accedere ai caratteri
 
 ## Suggerimento
-- Converti stringa in slice di rune: `runes := []rune(s)`
-- Converti slice di rune in stringa: `s = string(runes)`
 - Per ruotare le rune, puoi riadattare `RuotaSlice` oppure scrivere una versione specifica per rune

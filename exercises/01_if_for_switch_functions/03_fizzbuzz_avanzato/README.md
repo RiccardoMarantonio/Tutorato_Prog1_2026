@@ -61,4 +61,3 @@ Fizz
 
 ## Suggerimento
 - Per verificare se un numero è primo, basta controllare i divisori fino alla radice quadrata
-- Puoi usare un `switch true` per valutare condizioni multiple in modo pulito

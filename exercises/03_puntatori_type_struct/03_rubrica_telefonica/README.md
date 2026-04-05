@@ -78,7 +78,3 @@ Contatto rimosso: 3339876543
 Rossi, Mario - 3331234567
 Verdi, Mario - 3331112222
 ```
-
-## Suggerimento
-- Per rimuovere un elemento da una slice, puoi usare `slice[:i]` combinata con `slice[i+1:]`
-- Leggi i comandi da stdin con `fmt.Scan` o `fmt.Scanln`

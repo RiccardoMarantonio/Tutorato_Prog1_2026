@@ -85,6 +85,5 @@ Vincitore: Rossi (1 voti)
 ```
 
 ## Suggerimento
-- `map[string]*Sezione` permette di modificare le sezioni senza reinserirle
 - Per il ballottaggio, puoi ordinare i candidati per voti usando una slice temporanea
 - L'affluenza è `float64(votanti) / float64(elettori) * 100`

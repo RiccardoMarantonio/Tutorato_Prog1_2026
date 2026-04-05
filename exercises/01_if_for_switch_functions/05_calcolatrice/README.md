@@ -52,5 +52,4 @@ Operatore non valido
 - Il main deve validare l'operatore prima di chiamare `eseguiOp`
 
 ## Suggerimento
-- Leggi l'operatore come stringa con `fmt.Scan(&opStr)` e converti a rune con `[]rune(opStr)[0]`
 - Nel main, valida l'operatore con un `if` prima di chiamare `eseguiOp`

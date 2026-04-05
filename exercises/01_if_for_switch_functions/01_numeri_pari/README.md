@@ -24,6 +24,3 @@ Output:
 - Usa un ciclo `for` per iterare
 - Scrivi tutto il programma da zero (main + logica)
 
-## Suggerimento
-- Usa `fmt.Scan` per leggere da stdin
-- L'operatore `%` (modulo) restituisce il resto della divisione
