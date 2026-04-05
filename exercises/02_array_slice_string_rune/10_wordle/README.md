@@ -61,5 +61,4 @@ Hai indovinato! Vittoria in 2 tentativi!
 - Scrivi tutto il programma da zero
 
 ## Suggerimento
-- Converti le stringhe in `[]rune` per lavorare con i caratteri
 - Per le lettere gialle: conta le occorrenze nel segreto e confronta con quelle gia assegnate come verdi

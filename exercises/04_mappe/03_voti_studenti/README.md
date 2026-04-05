@@ -74,5 +74,4 @@ Ottimo: 2
 ```
 
 ## Suggerimento
-- `map[string]*Studente` permette di modificare i voti senza dover reinserire lo studente nella mappa
 - Per la distribuzione, scorri tutti gli studenti e tutti i loro voti

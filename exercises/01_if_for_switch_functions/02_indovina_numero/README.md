@@ -36,6 +36,4 @@ Hai indovinato in 4 tentativi!
 ```
 
 ## Suggerimento
-- Usa un ciclo `for` senza condizione (`for { ... }`) per il loop di gioco
-- Usa `break` per uscire quando il giocatore indovina
 - Basta una variabile `int` per contare i tentativi

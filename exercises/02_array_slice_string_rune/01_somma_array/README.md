@@ -48,8 +48,3 @@ Risultato: 120
 - Usa un ciclo `for` per entrambe le operazioni
 - Se l'operazione non e valida, stampa `"Operazione non valida"`
 - Scrivi tutto il programma da zero
-
-## Suggerimento
-- Usa `fmt.Scan` con l'operatore `&` per leggere i valori nell'array
-- Un array in Go ha dimensione fissa: `[5]int`
-- Per leggere la stringa dell'operazione: `var op string; fmt.Scan(&op)`

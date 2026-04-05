@@ -40,8 +40,3 @@ Perimetro: 20.00
 Dopo scala x2: Base=8.00, Altezza=12.00
 Nuova area: 96.00
 ```
-
-## Suggerimento
-- Passare una struct per valore crea una copia
-- Passare una struct per puntatore (`*Rettangolo`) permette di modificarla
-- Accedi ai campi con `r.Base` sia per valore che per puntatore (Go fa il dereferenziamento automatico)

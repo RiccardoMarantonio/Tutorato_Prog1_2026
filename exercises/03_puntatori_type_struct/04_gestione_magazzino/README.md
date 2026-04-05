@@ -81,4 +81,3 @@ Prodotti sotto scorta (soglia: 15): 1
 
 ## Suggerimento
 - Puoi usare un ciclo per cercare prodotti per codice nella slice
-- Gestisci gli errori restituendoli con `fmt.Errorf("messaggio")`

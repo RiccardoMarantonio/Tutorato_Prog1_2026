@@ -52,5 +52,4 @@ ehllo: 1
 ```
 
 ## Suggerimento
-- Puoi ordinare i caratteri di una stringa convertendola in `[]byte` e usando un semplice bubble sort
 - Usa `map[string][]string` per raggruppare: la chiave è la firma, il valore è la lista di parole

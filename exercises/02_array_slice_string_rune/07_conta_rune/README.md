@@ -34,8 +34,3 @@ Altri: 1
 - La stringa puo contenere caratteri Unicode (accenti, emoji, ecc.)
 - Usa `range` sulla stringa per iterare sulle rune, NON sui byte
 - Scrivi tutto il programma da zero
-
-## Suggerimento
-- `for i, r := range s` itera sulle rune (non sui byte)
-- Usa le condizioni: `r >= 'a' && r <= 'z'` o `r >= 'A' && r <= 'Z'` per le lettere
-- `r >= '0' && r <= '9'` per le cifre

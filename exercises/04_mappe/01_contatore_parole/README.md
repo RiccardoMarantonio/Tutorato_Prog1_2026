@@ -28,8 +28,3 @@ alto: 1
 - Le parole sono separate da spazi
 - Non usare mappe per ora... aspetta, questo esercizio e sulle mappe! Usa `map[string]int`
 - L'input termina con una riga vuota
-
-## Suggerimento
-- Usa `bufio.Scanner` per leggere riga per riga
-- Per ogni riga, usa `strings.Fields` per separare le parole
-- In Go, le mappe si creano con `make(map[string]int)`

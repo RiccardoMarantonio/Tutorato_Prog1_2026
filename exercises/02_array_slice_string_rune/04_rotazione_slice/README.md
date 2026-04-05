@@ -31,4 +31,3 @@ Ruotata:   [4 5 1 2 3]
 
 ## Suggerimento
 - Usa `k % len(slice)` per gestire rotazioni maggiori della lunghezza
-- Crea una nuova slice con `make([]int, len(slice))`
