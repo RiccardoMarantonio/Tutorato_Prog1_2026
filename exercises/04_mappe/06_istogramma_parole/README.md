@@ -1,6 +1,6 @@
 # Istogramma Parole
 
-Scrivi un programma che legge un file di testo e conta la frequenza di ogni parola, poi stampa un istogramma a barre orizzontali ordinato dalla parola piu frequente alla meno frequente.
+Scrivi un programma che legge un file di testo e conta la frequenza di ogni parola, poi stampa un istogramma a barre orizzontali ordinato dalla parola più frequente alla meno frequente.
 
 ## Requisiti
 
@@ -14,7 +14,7 @@ Scrivi un programma che legge un file di testo e conta la frequenza di ogni paro
 ## Formato Output
 
 ```
-Parola piu frequente  : ########## 10
+Parola più frequente  : ########## 10
 Seconda parola       : ########   8
 Terza parola         : ######     6
 ```

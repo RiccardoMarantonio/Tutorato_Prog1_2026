@@ -3,8 +3,8 @@
 Implementa il risolutore della Torre di Hanoi. Dati `n` dischi e 3 pioli (A, B, C), calcola la sequenza di mosse per spostare tutti i dischi da A a C usando B come appoggio.
 
 Regole:
-- Si puo spostare un solo disco alla volta
-- Un disco piu grande non puo mai stare sopra un disco piu piccolo
+- Si può spostare un solo disco alla volta
+- Un disco più grande non può mai stare sopra un disco più piccolo
 
 Il programma deve implementare la seguente funzione:
 
