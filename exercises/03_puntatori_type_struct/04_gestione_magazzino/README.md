@@ -13,7 +13,7 @@ type Prodotto struct {
 }
 
 type Magazzino struct {
-	Prodotti []Prodotto
+	Prodotti map[string]Prodotto
 }
 ```
 
