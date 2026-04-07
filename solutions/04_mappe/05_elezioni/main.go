@@ -112,11 +112,17 @@ func main() {
 		switch cmd {
 		case "CANDIDATI":
 			var c string
-			fmt.Scan(&c)
-			for c != "SEZIONE" && c != "VOTO" && c != "RISULTATI" && c != "AFFLUENZA" && c != "VINCITORE" && c != "BALLOTTAGGIO" && c != "FINE" {
+			for {
+				if _, err := fmt.Scan(&c); err != nil {
+					break
+				}
+				switch c {
+				case "SEZIONE", "VOTO", "RISULTATI", "AFFLUENZA", "VINCITORE", "BALLOTTAGGIO", "FINE":
+					goto afterCandidati
+				}
 				e.Candidati = append(e.Candidati, c)
-				fmt.Scan(&c)
 			}
+		afterCandidati:
 			fmt.Printf("Candidati registrati: %v\n", e.Candidati)
 			if c == "SEZIONE" {
 				var nome string
@@ -124,6 +130,11 @@ func main() {
 				fmt.Scan(&nome, &elettori)
 				e.Sezioni[nome] = &Sezione{Nome: nome, Voti: make(map[string]int), Elettori: elettori}
 				fmt.Printf("Sezione %s creata (%d elettori)\n", nome, elettori)
+			} else if c != "FINE" {
+				continue
+			}
+			if c == "FINE" {
+				break
 			}
 		case "SEZIONE":
 			var nome string
@@ -137,7 +148,7 @@ func main() {
 			if err := RegistraVoto(e, sez, cand); err != nil {
 				fmt.Printf("Errore: %v\n", err)
 			} else {
-				fmt.Printf("Voto registrato: %s -> %s\n", sez, cand)
+				fmt.Printf("Voto registrato: %s → %s\n", sez, cand)
 			}
 		case "RISULTATI":
 			fmt.Println("\n=== Risultati Nazionali ===")

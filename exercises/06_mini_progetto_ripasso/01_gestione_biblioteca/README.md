@@ -4,74 +4,31 @@ Implementa un sistema completo per la gestione di una biblioteca. Questo eserciz
 
 ## Strutture Dati
 
-```go
-type Libro struct {
-	ISBN        string
-	Titolo      string
-	Autore      string
-	Anno        int
-	Genere      string
-	Disponibile bool
-}
+Definisci tre struct:
+- **Libro**: con ISBN, titolo, autore, anno, genere e un flag per la disponibilita
+- **Prestito**: con ISBN del libro, nome utente, data del prestito e data di restituzione (vuota se non ancora restituito)
+- **Biblioteca**: contiene una mappa di libri (indicizzata per ISBN) e una slice di prestiti
 
-type Prestito struct {
-	ISBN           string
-	Utente         string
-	DataPrestito   string // "GG/MM/AAAA"
-	DataRestituzione string // "", vuota se non ancora restituito
-}
+## Funzionalita da Implementare
 
-type Biblioteca struct {
-	Libri    map[string]*Libro // ISBN → Libro
-	Prestiti []Prestito
-}
-```
+### Gestione Libri
+- **Creare una nuova biblioteca** vuota
+- **Aggiungere un libro** alla biblioteca. L'ISBN deve essere unico: se esiste gia, restituisci un errore
+- **Cercare libri** per titolo o autore. La ricerca deve essere case-insensitive e trovare libri che contengono il termine cercato (non devono essere uguali)
+- **Visualizzare il catalogo** completo
 
-## Funzioni Richieste
+### Gestione Prestiti
+- **Registrare un prestito**: associa un libro a un utente in una data specifica. Il libro deve esistere ed essere disponibile. Se il libro non esiste o non e disponibile, restituisci un errore
+- **Registrare una restituzione**: imposta la data di restituzione per un prestito esistente. Il libro deve esistere ed essere in prestito. Se non esiste o non e in prestito, restituisci un errore
+- **Visualizzare i prestiti aperti**: mostra tutti i prestiti ancora aperti (senza data di restituzione)
 
-```go
-func NuovaBiblioteca() *Biblioteca
-```
-Crea e restituisce una nuova biblioteca vuota.
+### Statistiche
+- **Contare i libri per genere**: restituisce una mappa che associa ogni genere al numero di libri in quel genere
+- **Mostrare statistiche generali**: totale libri, libri disponibili, libri in prestito, numero di generi diversi
 
-```go
-func AggiungiLibro(b *Biblioteca, l Libro) error
-```
-Aggiunge un libro alla biblioteca. Errore se l'ISBN esiste già.
+## Formato Input
 
-```go
-func CercaLibro(b Biblioteca, termine string) []Libro
-```
-Cerca libri per titolo o autore (case-insensitive, contiene il termine).
-
-```go
-func RegistraPrestito(b *Biblioteca, isbn, utente, data string) error
-```
-Registra un prestito. Errore se il libro non esiste o non è disponibile.
-
-```go
-func RegistraRestituzione(b *Biblioteca, isbn, data string) error
-```
-Registra la restituzione di un libro. Errore se il libro non esiste o non è in prestito.
-
-```go
-func LibriPerGenere(b Biblioteca) map[string]int
-```
-Restituisce una mappa che associa ogni genere al numero di libri.
-
-```go
-func PrestitiAperti(b Biblioteca) []Prestito
-```
-Restituisce tutti i prestiti non ancora chiusi (dataRestituzione vuota).
-
-```go
-func Statistiche(b Biblioteca) map[string]int
-```
-Restituisce statistiche: totale libri, disponibili, in prestito, generi diversi.
-
-## Comandi da stdin
-
-Il programma legge comandi da stdin fino a `FINE`:
+Il programma legge comandi da stdin fino a `FINE`. Ogni comando e su una riga separata:
 
 ```
 AGGIUNGI <isbn> <titolo> <autore> <anno> <genere>
@@ -86,10 +43,10 @@ FINE
 ```
 
 ## Vincoli
-- Solo librerie standard Go: `fmt`
-- Usa puntatori dove appropriato (modifica struct nella mappa)
-- Validazione input di base
-- Ricerca case-insensitive implementata manualmente
+- Usa solo le librerie standard Go necessarie
+- Usa puntatori dove appropriato (per modificare i campi delle struct nella mappa)
+- Implementa la ricerca case-insensitive manualmente (confrontando i byte in minuscolo)
+- Gestisci gli errori in modo appropriato (ISBN duplicato, libro non trovato, libro non disponibile, ecc.)
 
 ## Esempio
 
@@ -105,7 +62,7 @@ STATISTICHE
 FINE
 ```
 
-Output:
+Output atteso:
 ```
 Libro aggiunto: Il Nome Della Rosa
 Libro aggiunto: 1984
@@ -127,6 +84,6 @@ Generi diversi: 2
 ```
 
 ## Suggerimenti
-- `map[string]*Libro` permette di modificare il campo `Disponibile` senza reinserire il libro
-- Per la ricerca case-insensitive, converti tutto in minuscolo confrontando i byte
-- I prestiti aperti sono quelli con `DataRestituzione == ""`
+- Usa `map[string]*Libro` per poter modificare il campo `Disponibile` senza dover reinserire il libro nella mappa
+- Per la ricerca case-insensitive, converti sia il testo cercato che i campi titolo/autore in minuscolo prima di confrontare
+- I prestiti aperti sono quelli con `DataRestituzione` vuota (stringa vuota)

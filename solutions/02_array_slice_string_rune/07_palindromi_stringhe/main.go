@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
 )
 
 func toLowerByte(b byte) byte {
@@ -35,5 +34,4 @@ func main() {
 	scanner.Scan()
 	s := scanner.Text()
 	fmt.Printf("%q e un palindromo: %v\n", s, EPalindromo(s))
-	_ = strings.ToLower
 }
