@@ -90,12 +90,12 @@ Il messaggio ti dice quale asserzione e fallita.
 |---|-----------|---------|------------|
 | 01 | Numeri Pari | Intro | Stampa i numeri pari da 0 a n |
 | 02 | Indovina il Numero | Easy | Gioco: indovina 42 con feedback |
-| 03 | FizzBuzz Avanzato | Medium | FizzBuzz + numeri primi con switch |
-| 04 | Triangolo di Numeri | Hard | Triangolo di numeri allineati |
-| 05 | Calcolatrice | Extra | Calcolatrice con switch |
-| 06 | Tabelline | Extra | Stampa tabelline con cicli annidati |
-| 07 | Indovina la Parola | Extra | Indovina parola con 6 tentativi |
-| 08 | Numeri Perfetti | Medium | Trova numeri perfetti fino a n |
+| 03 | Calcolatrice | Easy | Calcolatrice con switch |
+| 04 | Indovina la Parola | Easy | Indovina parola con 6 tentativi |
+| 05 | FizzBuzz Avanzato | Medium | FizzBuzz + numeri primi con switch |
+| 06 | Tabelline | Medium | Stampa tabelline con cicli annidati |
+| 07 | Numeri Perfetti | Medium | Trova numeri perfetti fino a n |
+| 08 | Triangolo di Numeri | Hard | Triangolo di numeri allineati |
 | 09 | Pattern Stelle | Hard | Triangolo, diamante, piramide numerica |
 
 ### Capitolo 2 — Array, Slice, Stringhe, Rune
@@ -104,13 +104,13 @@ Il messaggio ti dice quale asserzione e fallita.
 | # | Esercizio | Livello | Cosa si fa |
 |---|-----------|---------|------------|
 | 01 | Somma di un Array | Intro | Somma 5 numeri in array fisso |
-| 02 | Medie di un Array | Easy | Media, conta sopra/sotto media |
-| 03 | Max/Min Slice | Intro | Trova massimo e minimo in slice |
+| 02 | Max/Min Slice | Intro | Trova massimo e minimo in slice |
+| 03 | Medie di un Array | Easy | Media, conta sopra/sotto media |
 | 04 | Rotazione Slice | Easy | Ruota slice di k posizioni |
-| 05 | Rotazione Stringhe | Medium | Ruota caratteri in stringa |
-| 06 | Cifrario di Cesare | Medium | Cifra/decifra con shift |
-| 07 | Palindromi Stringhe | Easy | Verifica palindromi case-insensitive |
-| 08 | Conteggio Rune | Easy | Conta lettere, cifre, spazi, altri |
+| 05 | Palindromi Stringhe | Easy | Verifica palindromi case-insensitive |
+| 06 | Conteggio Rune | Easy | Conta lettere, cifre, spazi, altri |
+| 07 | Rotazione Stringhe | Medium | Ruota caratteri in stringa |
+| 08 | Cifrario di Cesare | Medium | Cifra/decifra con shift |
 | 09 | Anagrammi Rune | Medium | Verifica anagrammi Unicode |
 | 10 | Fusione Slice Ordinate | Medium | Merge, rimuovi duplicati, intersezione |
 | 11 | Wordle | Hard | Gioco Wordle in console |
@@ -134,9 +134,9 @@ Il messaggio ti dice quale asserzione e fallita.
 | 02 | Anagrammi | Easy | Raggruppa anagrammi tramite firma |
 | 03 | Gestione Magazzino | Medium | Prodotti con map, statistiche |
 | 04 | Voti degli Studenti | Medium | Registro voti, medie, distribuzioni |
-| 05 | Elezioni | Hard | Sezioni elettorali, affluenza, ballottaggio |
-| 06 | Istogramma Parole | Hard | Leggi file, conta frequenze, stampa istogramma |
-| 07 | Mappe come Set | Medium | Implementa Set con `map[string]struct{}` |
+| 05 | Mappe come Set | Medium | Implementa Set con `map[string]struct{}` |
+| 06 | Elezioni | Hard | Sezioni elettorali, affluenza, ballottaggio |
+| 07 | Istogramma Parole | Hard | Leggi file, conta frequenze, stampa istogramma |
 
 ### Capitolo 5 — Ricorsione
 *Concetti: caso base, passo ricorsivo, stack di chiamate, memoizzazione*
