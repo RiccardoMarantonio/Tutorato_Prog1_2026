@@ -56,7 +56,7 @@ Decifrato: abc
 - Solo lettere minuscole ASCII (a-z), spazi e newline
 - La chiave `k` e un intero non negativo
 - I caratteri non alfabetici (spazi, newline) devono rimanere invariati
-- Il testo cifrato puo occupare piu righe
+- Il testo cifrato può occupare più righe
 
 ## Suggerimento
 - Per decifrare: `(char - 'a' - k%26 + 26) % 26 + 'a'`

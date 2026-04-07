@@ -4,7 +4,7 @@ Scrivi un programma che fa indovinare una parola segreta (fissata a `"golang"` p
 
 Il giocatore ha a disposizione **6 tentativi**. Dopo ogni tentativo sbagliato, il programma dice:
 - `"Troppo corto"` se la parola inserita ha meno lettere della parola segreta
-- `"Troppo lungo"` se la parola inserita ha piu lettere della parola segreta
+- `"Troppo lungo"` se la parola inserita ha più lettere della parola segreta
 - `"Lunghezza giusta, riprova!"` se la lunghezza e corretta ma la parola e sbagliata
 - `"Hai indovinato!"` se la parola e corretta
 

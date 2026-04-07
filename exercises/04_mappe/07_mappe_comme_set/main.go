@@ -34,3 +34,5 @@ func Size(s Set) int {
 	// TODO: implementa
 	return 0
 }
+
+func main() {}

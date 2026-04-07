@@ -2,7 +2,7 @@
 
 Scrivi un programma che legge un testo da stdin e conta quante volte ciascuna parola appare. Usa una `map[string]int`.
 
-Il testo puo contenere piu parole sulla stessa riga, separate da spazi. L'input termina con una riga vuota.
+Il testo può contenere più parole sulla stessa riga, separate da spazi. L'input termina con una riga vuota.
 
 Il programma deve stampare tutte le parole con il loro conteggio alla fine dell'input.
 

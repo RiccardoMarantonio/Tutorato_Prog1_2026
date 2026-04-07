@@ -70,7 +70,7 @@ func main() {
 	}
 
 	conta := ContaAnagrammi(parole)
-	fmt.Println("\nFirme piu comuni:")
+	fmt.Println("\nFirme più comuni:")
 	for firma, count := range conta {
 		fmt.Printf("%s: %d\n", firma, count)
 	}

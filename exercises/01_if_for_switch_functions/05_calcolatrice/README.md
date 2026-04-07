@@ -13,8 +13,8 @@ Esegue l'operazione tra `a` e `b` secondo l'operatore `op`. Usa `switch` per ges
 Tre valori separati da spazio: `<numero> <operatore> <numero>`
 
 ## Regole
-- Se l'operatore non e uno tra `+`, `-`, `*`, `/`, stampa `"Operatore non valido"`
-- Se la divisione e per zero, stampa `"Divisione per zero"`
+- Se l'operatore non è uno tra `+`, `-`, `*`, `/`, stampa `"Operatore non valido"`
+- Se la divisione è per zero, stampa `"Divisione per zero"`
 - Il risultato della divisione intera deve essere troncato verso zero (comportamento standard di Go)
 
 ## Esempi

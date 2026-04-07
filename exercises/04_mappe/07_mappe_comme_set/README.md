@@ -1,6 +1,6 @@
 # Mappe come Set
 
-In Go non esiste un tipo `Set` built-in, ma puoi usare una `map[string]struct{}` per implementare un set di stringhe. `struct{}` e il tipo piu leggero possibile (0 byte) e viene usato quando ti interessa solo la presenza o assenza di un elemento.
+In Go non esiste un tipo `Set` built-in, ma puoi usare una `map[string]struct{}` per implementare un set di stringhe. `struct{}` è il tipo più leggero possibile (0 byte) e viene usato quando ti interessa solo la presenza o assenza di un elemento.
 
 ## Tipo Set
 

@@ -9,7 +9,7 @@ Definisci tre struct:
 - **Prestito**: con ISBN del libro, nome utente, data del prestito e data di restituzione (vuota se non ancora restituito)
 - **Biblioteca**: contiene una mappa di libri (indicizzata per ISBN) e una slice di prestiti
 
-## Funzionalita da Implementare
+## Funzionalità da Implementare
 
 ### Gestione Libri
 - **Creare una nuova biblioteca** vuota
@@ -18,8 +18,8 @@ Definisci tre struct:
 - **Visualizzare il catalogo** completo
 
 ### Gestione Prestiti
-- **Registrare un prestito**: associa un libro a un utente in una data specifica. Il libro deve esistere ed essere disponibile. Se il libro non esiste o non e disponibile, restituisci un errore
-- **Registrare una restituzione**: imposta la data di restituzione per un prestito esistente. Il libro deve esistere ed essere in prestito. Se non esiste o non e in prestito, restituisci un errore
+- **Registrare un prestito**: associa un libro a un utente in una data specifica. Il libro deve esistere ed essere disponibile. Se il libro non esiste o non è disponibile, restituisci un errore
+- **Registrare una restituzione**: imposta la data di restituzione per un prestito esistente. Il libro deve esistere ed essere in prestito. Se non esiste o non è in prestito, restituisci un errore
 - **Visualizzare i prestiti aperti**: mostra tutti i prestiti ancora aperti (senza data di restituzione)
 
 ### Statistiche

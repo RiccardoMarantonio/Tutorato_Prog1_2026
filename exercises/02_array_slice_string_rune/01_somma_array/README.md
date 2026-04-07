@@ -46,5 +46,5 @@ Risultato: 120
 ## Vincoli
 - L'array ha dimensione fissa 5
 - Usa un ciclo `for` per entrambe le operazioni
-- Se l'operazione non e valida, stampa `"Operazione non valida"`
+- Se l'operazione non è valida, stampa `"Operazione non valida"`
 - Scrivi tutto il programma da zero
