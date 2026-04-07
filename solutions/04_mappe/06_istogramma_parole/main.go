@@ -32,7 +32,6 @@ func EstraiParole(testo string) []string {
 		}
 		testo = strings.ReplaceAll(testo, string(r), " ")
 	}
-
 	fields := strings.Fields(testo)
 	for _, parola := range fields {
 		parolaPulita := ""
