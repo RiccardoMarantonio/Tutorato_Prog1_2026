@@ -179,14 +179,6 @@ make run EX=04_mappe/07_mappe_comme_set
 4. **Se un esercizio e troppo difficile** — torna al precedente, consolida le basi
 5. **Il progetto finale (capitolo 6)** va fatto dopo aver completato almeno i capitoli 1-5
 
-## Cosa NON Usare
-
-Gli esercizi sono progettati per essere risolti con **solo le librerie standard di base** (`fmt`, `bufio`, `os`). Non usare:
-- `sort` package (ordina con cicli)
-- `strings` package (implementa le utility a mano)
-- `strconv` (tranne dove esplicitamente permesso)
-- Package esterni di qualsiasi tipo
-
 ## Note per i Tutor
 
 - Le soluzioni complete sono in `solutions/` con la stessa struttura di `exercises/`
