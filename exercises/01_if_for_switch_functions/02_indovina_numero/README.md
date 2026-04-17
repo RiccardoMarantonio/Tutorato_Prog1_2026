@@ -5,9 +5,9 @@ Scrivi un programma che genera un numero segreto (fissato a 42 per semplicità) 
 Il programma deve implementare la seguente funzione:
 
 ```go
-func Confronta(tentativo, segreto int) string
+func Confronta(tentativo, segreto int) (string, bool)
 ```
-Restituisce `"Troppo alto"` se tentativo > segreto, `"Troppo basso"` se tentativo < segreto, `"Indovinato!"` se sono uguali.
+Restituisce `"Troppo alto"` e `false` se tentativo > segreto, `"Troppo basso"` e `false` se tentativo < segreto, `"Indovinato!"` e `true` se sono uguali.
 
 ## Vincoli
 - Il numero segreto è fissato a `42`

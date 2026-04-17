@@ -24,12 +24,12 @@ func TestCalcolatrice(t *testing.T) {
 		input    string
 		contains string
 	}{
-		{"somma", "5 + 3\n", "8"},
-		{"sottrazione", "10 - 4\n", "6"},
-		{"moltiplicazione", "7 * 3\n", "21"},
-		{"divisione", "15 / 3\n", "5"},
+		{"somma", "5.5 + 3.2\n", "8.7"},
+		{"sottrazione", "10.0 - 4.5\n", "5.5"},
+		{"moltiplicazione", "7.1 * 3\n", "21.3"},
+		{"divisione", "15.0 / 2.5\n", "6"},
 		{"divisione zero", "10 / 0\n", "Divisione per zero"},
-		{"op invalido", "7 % 3\n", "Operatore non valido"},
+		{"op invalido", "7.5 % 3.0\n", "Operatore non valido"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

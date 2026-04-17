@@ -1,13 +1,13 @@
 # Calcolatrice da Terminale
 
-Scrivi un programma che legge da stdin un'espressione nella forma `a op b` (dove `a` e `b` sono interi e `op` e uno tra `+`, `-`, `*`, `/`) e stampa il risultato.
+Scrivi un programma che legge da stdin un'espressione nella forma `a op b` (dove `a` e `b` sono numeri decimali `float64` e `op` e uno tra `+`, `-`, `*`, `/`) e stampa il risultato.
 
 Il programma deve implementare la seguente funzione:
 
 ```go
-func eseguiOp(a, b int, op rune) int
+func eseguiOp(a, b float64, op rune) float64
 ```
-Esegue l'operazione tra `a` e `b` secondo l'operatore `op`. Usa `switch` per gestire i casi `+`, `-`, `*`, `/`. Per un operatore non valido, restituisce 0.
+Esegue l'operazione tra `a` e `b` secondo l'operatore `op`. Usa `switch` per gestire i casi `+`, `-`, `*`, `/`. Per un operatore non valido, restituisce 0.0.
 
 ## Formato Input
 Tre valori separati da spazio: `<numero> <operatore> <numero>`
@@ -15,17 +15,16 @@ Tre valori separati da spazio: `<numero> <operatore> <numero>`
 ## Regole
 - Se l'operatore non è uno tra `+`, `-`, `*`, `/`, stampa `"Operatore non valido"`
 - Se la divisione è per zero, stampa `"Divisione per zero"`
-- Il risultato della divisione intera deve essere troncato verso zero (comportamento standard di Go)
 
 ## Esempi
 
 Input:
 ```
-5 + 3
+5.5 + 3.2
 ```
 Output:
 ```
-8
+8.7
 ```
 
 Input:
@@ -47,9 +46,5 @@ Operatore non valido
 ```
 
 ## Vincoli
-- Solo `fmt` come libreria
 - La funzione `eseguiOp` deve usare `switch`
 - Il main deve validare l'operatore prima di chiamare `eseguiOp`
-
-## Suggerimento
-- Nel main, valida l'operatore con un `if` prima di chiamare `eseguiOp`
