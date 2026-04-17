@@ -51,7 +51,7 @@ Hai perso! La parola era: golang
 ```
 
 ## Vincoli
-- La parola segreta e `"golang"` (6 lettere)
+- La parola segreta è `"golang"` (6 lettere)
 - Il giocatore ha esattamente 6 tentativi
 - Scrivi tutto il programma da zero
 - Usa `for`, `if/else`, e la funzione `len()` per la lunghezza delle stringhe
